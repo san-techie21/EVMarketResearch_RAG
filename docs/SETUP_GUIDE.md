@@ -1,4 +1,4 @@
-# EV Research — Infrastructure Setup Guide
+# EV Research - Infrastructure Setup Guide
 
 Follow these steps in order. Each step must complete before the next.
 
@@ -13,7 +13,7 @@ Follow these steps in order. Each step must complete before the next.
 
 ---
 
-## Step 1 — Run the Windows setup script
+## Step 1 - Run the Windows setup script
 
 Open PowerShell **as Administrator** and run:
 
@@ -24,11 +24,11 @@ cd C:\EVMarketResearch
 ```
 
 This installs Terraform, doctl, and generates an SSH key at
-`~/.ssh/ev_research_ed25519`. The public key is printed at the end — copy it.
+`~/.ssh/ev_research_ed25519`. The public key is printed at the end - copy it.
 
 ---
 
-## Step 2 — Get DigitalOcean credentials
+## Step 2 - Get DigitalOcean credentials
 
 ### Personal Access Token (DO_TOKEN)
 1. Go to https://cloud.digitalocean.com/account/api/tokens
@@ -44,7 +44,7 @@ This installs Terraform, doctl, and generates an SSH key at
 
 ---
 
-## Step 3 — Fill in terraform.tfvars
+## Step 3 - Fill in terraform.tfvars
 
 ```powershell
 Copy-Item infrastructure\terraform\terraform.tfvars.example infrastructure\terraform\terraform.tfvars
@@ -54,11 +54,11 @@ Edit `infrastructure\terraform\terraform.tfvars` and fill in:
 - `do_token`
 - `spaces_access_key` / `spaces_secret_key`
 - `ssh_public_key` (from Step 1 output)
-- `spaces_bucket_name` — must be globally unique, e.g. `ev-research-yourname-2025`
+- `spaces_bucket_name` - must be globally unique, e.g. `ev-research-yourname-2025`
 
 ---
 
-## Step 4 — Authenticate doctl
+## Step 4 - Authenticate doctl
 
 ```powershell
 doctl auth init
@@ -68,7 +68,7 @@ doctl account get   # confirm it works
 
 ---
 
-## Step 5 — Apply Terraform
+## Step 5 - Apply Terraform
 
 ```powershell
 cd infrastructure\terraform
@@ -82,18 +82,18 @@ This creates:
 - 1× Managed Postgres (`db-s-1vcpu-1gb`, ~$15/mo)
 - 1× Spaces bucket (pay-per-use, ~$5/mo minimum)
 
-**Save the outputs** — you'll need `droplet_ip` and `db_uri`.
+**Save the outputs** - you'll need `droplet_ip` and `db_uri`.
 
 To retrieve outputs later:
 ```powershell
 terraform output droplet_ip
-terraform output db_uri   # sensitive — use -raw flag
+terraform output db_uri   # sensitive - use -raw flag
 terraform output -raw db_uri
 ```
 
 ---
 
-## Step 6 — Fill in config/.env
+## Step 6 - Fill in config/.env
 
 ```powershell
 Copy-Item config\.env.example config\.env
@@ -106,7 +106,7 @@ Edit `config\.env`:
 
 ---
 
-## Step 7 — Enable pgvector on Postgres
+## Step 7 - Enable pgvector on Postgres
 
 SSH into the Droplet:
 ```powershell
@@ -137,7 +137,7 @@ CREATE INDEX IF NOT EXISTS document_chunks_embedding_idx
 
 ---
 
-## Step 8 — Verify bootstrap completed on Droplet
+## Step 8 - Verify bootstrap completed on Droplet
 
 ```bash
 # SSH in, then:

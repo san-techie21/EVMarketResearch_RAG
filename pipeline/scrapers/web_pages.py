@@ -1,5 +1,5 @@
 """
-Web pages scraper using Firecrawl — scrapes official EV charging app websites,
+Web pages scraper using Firecrawl - scrapes official EV charging app websites,
 feature pages, and pricing pages for each target app.
 
 Usage:
@@ -133,9 +133,9 @@ def scrape_app(name: str, urls: list[str], app: FirecrawlApp) -> None:
                 "content":     content,
                 "chars":       len(content),
             })
-            log.info("  [OK] %s — %d chars", url, len(content))
+            log.info("  [OK] %s - %d chars", url, len(content))
         except Exception as exc:
-            log.warning("  [FAIL] %s — %s", url, exc)
+            log.warning("  [FAIL] %s - %s", url, exc)
         time.sleep(SLEEP_SECS)
 
     out_path = out_dir / "pages.json"

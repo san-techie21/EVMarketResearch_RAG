@@ -5,7 +5,7 @@ Reads structured YouTube summary .txt files from:
   data/raw/text/youtube_summaries/<app_name>/<video_id>_<slug>.txt
 
 Chunks, embeds, and upserts into document_chunks with source='youtube'.
-Safe to re-run — upsert.py deduplicates by (source, app_name, content).
+Safe to re-run - upsert.py deduplicates by (source, app_name, content).
 """
 
 import json
@@ -78,7 +78,7 @@ def ingest_file(txt_path: Path, app_name: str) -> int:
     content = clean_content(raw)
 
     if not content:
-        log.warning("Empty content in %s — skipping", txt_path.name)
+        log.warning("Empty content in %s - skipping", txt_path.name)
         return 0
 
     chunks = chunk_text(content)

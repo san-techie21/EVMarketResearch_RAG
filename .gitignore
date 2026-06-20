@@ -1,17 +1,17 @@
-# ── Credentials & secrets — NEVER commit ─────────────────────────────────
+# -- Credentials & secrets - NEVER commit ---------------------------------
 config/.env
 *.env
 infrastructure/terraform/terraform.tfvars
 *.pem
 *.key
 
-# ── Terraform state ───────────────────────────────────────────────────────
+# -- Terraform state -------------------------------------------------------
 infrastructure/terraform/.terraform/
 infrastructure/terraform/.terraform.lock.hcl
 infrastructure/terraform/terraform.tfstate
 infrastructure/terraform/terraform.tfstate.backup
 
-# ── Python ────────────────────────────────────────────────────────────────
+# -- Python ----------------------------------------------------------------
 __pycache__/
 *.pyc
 *.pyo
@@ -21,7 +21,7 @@ venv/
 dist/
 build/
 
-# ── Scraped bulk data (re-runnable — excluded to keep repo lean) ──────────
+# -- Scraped bulk data (re-runnable - excluded to keep repo lean) ----------
 data/raw/text/google_play/
 data/raw/text/app_store/
 data/raw/text/news/
@@ -32,21 +32,21 @@ data/raw/metadata/
 #   data/raw/text/youtube/
 #   data/raw/text/web_pages/
 
-# ── Claude Code session files ─────────────────────────────────────────────
+# -- Claude Code session files ---------------------------------------------
 .claude/
 
-# ── Temp / scratch files ──────────────────────────────────────────────────
+# -- Temp / scratch files --------------------------------------------------
 tmp_*.py
 *.tmp
 *.bak
 *.log
 
-# ── OS & IDE ──────────────────────────────────────────────────────────────
+# -- OS & IDE --------------------------------------------------------------
 .DS_Store
 Thumbs.db
 desktop.ini
 .vscode/
 .idea/
 
-# ── Node ──────────────────────────────────────────────────────────────────
+# -- Node ------------------------------------------------------------------
 node_modules/

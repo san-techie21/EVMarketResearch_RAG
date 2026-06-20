@@ -3,11 +3,11 @@ Video ID: 7AjjGeIhylQ
 URL:      https://www.youtube.com/watch?v=7AjjGeIhylQ
 App:      tesla_powerwall
 
-**Summary of Powerwall 3 Commissioning Process – Initial Setup**
+**Summary of Powerwall 3 Commissioning Process - Initial Setup**
 - Begin commissioning by turning on the breaker for Powerwall 3 and enabling the switch.
 - Two LEDs turn green; once the LED turns light blue, Powerwall 3 is ready for commissioning.
 - LED illumination can take up to 5 minutes.
-- If the Powerwall switch is turned on but system is idle, the logo LED blinks for 10 minutes, then turns off—indicating the system enters a **sleep state**.
+- If the Powerwall switch is turned on but system is idle, the logo LED blinks for 10 minutes, then turns off-indicating the system enters a **sleep state**.
 - To wake from sleep, toggle the Powerwall switch off for 3 seconds, then back on until the light blue LED appears.
 
 **Connecting and Configuring Powerwall 3 Using Tesla 1 App**
@@ -15,7 +15,7 @@ App:      tesla_powerwall
 - Log in or create an account, update the app if prompted for best functionality.
 - Scan the QR code located on the black plastic piece below the Taco (do **not** scan QR codes on the side of Powerwall 3 or inside Backup Gateway).
 - Alternatively, SSID and password on the sticker can be manually entered if scanning is not possible.
-- Grant permission for Tesla 1 to access local network devices—mandatory to connect to Powerwall 3.
+- Grant permission for Tesla 1 to access local network devices-mandatory to connect to Powerwall 3.
 - After successful connection, app opens to Powerwall 3 landing page.
 
 **Power Flow & Main Control Tiles Overview**
@@ -46,7 +46,7 @@ App:      tesla_powerwall
 - After update, LED should turn light blue before continuing commissioning.
 
 **Essential Configuration Settings: Grid Code & Solar Installation Type**
-- The first critical setting on the Settings tile is the **grid code**, defining grid voltage and frequency based on regional utility requirements — mandatory for operation.
+- The first critical setting on the Settings tile is the **grid code**, defining grid voltage and frequency based on regional utility requirements - mandatory for operation.
 - Set **solar installation type** for site with either solar panels or Tesla solar roofs to ensure proper functionality and correct Tesla app visuals.
 - Select the relevant solar option (solar panels or solar roof) and confirm.
 - Import/export power limits must be entered if required for compliance.
@@ -83,7 +83,7 @@ App:      tesla_powerwall
 - Review all meters on Metering tab to confirm CT installation and configuration correctness.
 - Alerts for incorrectly installed CTs indicate troubleshooting is needed.
 - Conduct **Backup Test** from System Tests tile:
-- Choose backup type—either whole home or partial home backup.
+- Choose backup type-either whole home or partial home backup.
 - Begins a grid outage simulation to verify system operation off-grid.
 - Monitor system during test; when complete, select “Reconnect to Grid” to conclude.
 - Successful completion returns installer to landing page.

@@ -1,5 +1,5 @@
 """
-YouTube scraper — searches for EV charging app videos via YouTube Data API v3
+YouTube scraper - searches for EV charging app videos via YouTube Data API v3
 and fetches transcripts using yt-dlp (bypasses IP-based blocking).
 
 Usage:
@@ -142,7 +142,7 @@ def scrape_app(name: str, query: str) -> None:
             video["transcript"] = transcript
             video["transcript_chars"] = len(transcript)
             results.append(video)
-            log.info("  [OK] %s — %d chars", video["title"][:60], len(transcript))
+            log.info("  [OK] %s - %d chars", video["title"][:60], len(transcript))
         else:
             log.info("  [NO TRANSCRIPT] %s", video["title"][:60])
         time.sleep(SLEEP_SECS)

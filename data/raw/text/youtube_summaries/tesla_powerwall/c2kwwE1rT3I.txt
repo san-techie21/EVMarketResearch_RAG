@@ -30,10 +30,10 @@ App:      tesla_powerwall
 - Solar contribution: 11%.
 - Grid energy usage: 59%.
 - App’s navigation includes:
-- **EV charging overview**—shows when vehicles charged (e.g., overnight).
-- **Powerwall charging and discharging graph**—illustrates charge cycles, including cheap nighttime charging and daytime solar top-up.
-- **Solar generation data**—e.g., 7.4 kWh solar generation on a sample day.
-- **Grid draw amounts**—aligned with tariff periods to show costs.
+- **EV charging overview**-shows when vehicles charged (e.g., overnight).
+- **Powerwall charging and discharging graph**-illustrates charge cycles, including cheap nighttime charging and daytime solar top-up.
+- **Solar generation data**-e.g., 7.4 kWh solar generation on a sample day.
+- **Grid draw amounts**-aligned with tariff periods to show costs.
 
 ### Cost and Tariff-Based Analytics
 - App uses **time-scale filters** (day, week, month) to view energy use and costs.
@@ -62,7 +62,7 @@ App:      tesla_powerwall
 - Customizable daytime and nighttime tariff periods with draggable sliders for fine-tuning.
 
 ### Powerwall Algorithm and Learning Capabilities
-- Powerwall undergoes a **2–3 month learning phase** adapting to household usage patterns.
+- Powerwall undergoes a **2-3 month learning phase** adapting to household usage patterns.
 - The system predicts events like heavy usage days (e.g., baking or family visits) and pre-charges accordingly during cheap rates.
 - Optimizes charge/discharge around expected solar conditions, weather forecasts, and tariff schedules to minimize costs.
 
@@ -107,7 +107,7 @@ App:      tesla_powerwall
 
 ### **Key Insights:**
 - The Powerwall app offers **real-time energy monitoring** across solar generation, home consumption, EV charging, and grid usage.
-- **Backup reserve management** is crucial to maintaining power during outages, configurable between 0–100%.
+- **Backup reserve management** is crucial to maintaining power during outages, configurable between 0-100%.
 - **Time-based control mode** optimizes battery use based on tariff schedules, beneficial for users with cheap night rates or EV charging needs.
 - The Powerwall **learns household consumption patterns** over months to improve cost efficiency dynamically.
 - **Storm Watch** enhances resilience by proactively charging the battery ahead of forecasted severe weather.

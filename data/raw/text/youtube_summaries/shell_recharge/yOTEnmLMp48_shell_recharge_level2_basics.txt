@@ -26,7 +26,7 @@ The presenter describes the specific connector being used: the **J1772 plug** (t
   - Blue light = charging active;  
   - Station screen includes an RFID card reader and QR code with a station ID (used for app activation).  
 
-- Practical advice: Don’t plug in immediately—first, activate the charger via app and listen for confirmation beep.  
+- Practical advice: Don’t plug in immediately-first, activate the charger via app and listen for confirmation beep.  
 
 ---
 

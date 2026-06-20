@@ -50,7 +50,7 @@ https://www.youtube.com/watch?v=-pZ57KjwjLo&t=2s
 [00:02:56]  
 **Quick Controls and Charging Information**  
 - Directly beneath the car info, a **row of customizable quick controls** allows fast access to frequently used functions.  
-- The app offers a hidden feature allowing more than the default 4 quick controls—in this example, 5 controls have been set.  
+- The app offers a hidden feature allowing more than the default 4 quick controls-in this example, 5 controls have been set.  
 - While charging, a box appears below quick controls showing:  
   - **Current power (kW), energy delivered (kWh)**  
   - **Charging amps and voltage**  
@@ -128,7 +128,7 @@ https://www.youtube.com/watch?v=-pZ57KjwjLo&t=2s
   - **Enhanced Autopilot**  
   - **Full Self-Driving capability**  
 - Purchase options include full payment or monthly installments. Upgrades become **immediately enabled** after purchase.  
-- The upgrade section also offers **extended service agreements** covering two years or an additional 25,000 miles beyond the original warranty—whichever comes first. This plan activates after expiration of the basic limited warranty.  
+- The upgrade section also offers **extended service agreements** covering two years or an additional 25,000 miles beyond the original warranty-whichever comes first. This plan activates after expiration of the basic limited warranty.  
 - Tesla accessories (e.g., interior/exterior add-ons) can be purchased here, with a recommendation to watch a separate video demonstrating official Tesla accessories.
 
 [00:08:05]  

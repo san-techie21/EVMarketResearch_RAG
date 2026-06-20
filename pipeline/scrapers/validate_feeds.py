@@ -1,5 +1,5 @@
 """
-Feed health-check — validate every production RSS feed end-to-end.
+Feed health-check - validate every production RSS feed end-to-end.
 
 Run this whenever news ingestion looks thin, or on a schedule, to catch feeds
 that have gone dead, moved, or started blocking bots. It imports the live

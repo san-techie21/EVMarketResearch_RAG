@@ -47,7 +47,7 @@ App:      sense
 
 **Sense App Overview and Initial Use**
 - The app’s **initial screen shows real-time whole-house energy usage in watts**.
-- Usage fluctuates visibly when devices turn on/off—ideal for tracking consumption dynamically.
+- Usage fluctuates visibly when devices turn on/off-ideal for tracking consumption dynamically.
 - The app requires **24-48 hours to begin identifying individual devices** using "bubbles" (a detection and learning feature).
 - Real-time tracking validates device power consumption claims, e.g.:
 - Joe measured his basement LED can lights at about 7.7 watts each, consistent with manufacturer ratings.

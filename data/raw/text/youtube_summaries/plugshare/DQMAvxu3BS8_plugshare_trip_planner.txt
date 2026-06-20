@@ -58,13 +58,13 @@ https://www.youtube.com/watch?v=DQMAvxu3BS8
   - Adding charging stops along the route by selecting stations within the range radius, which dynamically updates the range circle from each stop.  
 - The planner provides:  
   - Distance and driving time estimates between stops.  
-  - Ability to add **estimated wait times and charging durations** to calculate total trip time including charging — clarifying that “wait time” refers to charging duration primarily.
+  - Ability to add **estimated wait times and charging durations** to calculate total trip time including charging - clarifying that “wait time” refers to charging duration primarily.
 
 ---
 
 [00:09:56]  
 **Trip Time and Vehicle Range Considerations**  
-- For the Nissan Leaf’s limited range and 24 kWh battery, the trip time is **extended significantly** by frequent charging stops—potentially almost doubling trip duration (e.g., 10 hours 45 minutes drive time, 15-20 hours total with charging).  
+- For the Nissan Leaf’s limited range and 24 kWh battery, the trip time is **extended significantly** by frequent charging stops-potentially almost doubling trip duration (e.g., 10 hours 45 minutes drive time, 15-20 hours total with charging).  
 - The planner is more convenient for newer EVs with longer ranges that need fewer stops.  
 - A crucial feature is **elevation profile checking**, showing:  
   - Uphill driving reduces range.  
@@ -100,7 +100,7 @@ https://www.youtube.com/watch?v=DQMAvxu3BS8
 - PlugShare stands as a comprehensive, user-friendly tool for EV drivers to find public and fast charging stations across multiple networks.  
 - The desktop app’s trip planner is a standout feature critical for long distance planning, accommodating vehicle range and elevation changes.  
 - Mobile app complements desktop planning by offering portability and syncing user settings and route details.  
-- The presenter encourages viewers to interact with the video—comment, like, and subscribe for future updates and tutorials.  
+- The presenter encourages viewers to interact with the video-comment, like, and subscribe for future updates and tutorials.  
 - The app and its features continue evolving, so users should regularly check for improvements and new functionalities.
 
 ---

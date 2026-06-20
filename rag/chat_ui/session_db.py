@@ -1,5 +1,5 @@
 """
-session_db.py — per-user chat session persistence in Postgres.
+session_db.py - per-user chat session persistence in Postgres.
 
 Table: chat_sessions
   - username    : who owns the session

@@ -1,5 +1,5 @@
 # Copy this file to terraform.tfvars and fill in real values.
-# terraform.tfvars is git-ignored — never commit it.
+# terraform.tfvars is git-ignored - never commit it.
 
 do_token           = "dop_v1_REPLACE_WITH_YOUR_DO_PERSONAL_ACCESS_TOKEN"
 spaces_access_key  = "REPLACE_WITH_YOUR_DO_SPACES_ACCESS_KEY"
@@ -9,7 +9,7 @@ spaces_secret_key  = "REPLACE_ME"
 #   Get-Content $env:USERPROFILE\.ssh\ev_research_ed25519.pub
 ssh_public_key     = "ssh-ed25519 AAAA... your-machine"
 
-# Region — blr1 is Bangalore; change only if needed
+# Region - blr1 is Bangalore; change only if needed
 region             = "blr1"
 
 # Must be globally unique across all DO Spaces customers

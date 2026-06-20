@@ -24,7 +24,7 @@ https://www.youtube.com/watch?v=sI-V5xzLq5U
 
 - Set charging schedules separately for **weekdays and weekends**.
 - Prevent the charger from operating during peak time windows.
-- The speaker configured the schedule to **disable charging between 5:30 AM and 9:30 AM**, a little wider than the 6–9 AM peak, providing extra safety.
+- The speaker configured the schedule to **disable charging between 5:30 AM and 9:30 AM**, a little wider than the 6-9 AM peak, providing extra safety.
 
 This proactive charging scheduling has worked well and prevented peak-hour charging costs.
 
@@ -71,7 +71,7 @@ This resets the schedule and re-enables the programmed charging restrictions, av
 | Normal electricity rate (off-peak) | $0.139$ USD/kWh (13.9 cents)   | Reduced from 15.25 cents/kWh         |
 | Peak electricity additional rate | $0.13$ USD/kWh                 | Applies from 6:00 AM to 9:00 AM winter season |
 | Total peak rate per kWh          | $0.269$ USD/kWh (13.9 + 13 cents) | More than double off-peak rate      |
-| Charger schedule block           | 5:30 AM – 9:30 AM               | Set to avoid peak window with margin  |
+| Charger schedule block           | 5:30 AM - 9:30 AM               | Set to avoid peak window with margin  |
 
 ---
 

@@ -44,7 +44,7 @@ APPS = {
     "solaredge":       "com.solaredge.homeowner",
     "sense":           "com.sense.androidclient",    # Sense Home
     "span":            "io.span.android.homeowner",  # SPAN Home
-    # enphase, emporia, sunpower, generac: not on US Play Store — App Store only
+    # enphase, emporia, sunpower, generac: not on US Play Store - App Store only
 }
 
 MAX_REVIEWS   = 1000   # per app
@@ -129,7 +129,7 @@ def scrape_app(name: str, app_id: str) -> None:
         log.info("  App info saved → %s (rating: %.1f, installs: %s)",
                  meta_path, info.get("score") or 0, info.get("installs") or "?")
     except NotFoundError:
-        log.warning("  App not found on Play Store: %s — skipping", app_id)
+        log.warning("  App not found on Play Store: %s - skipping", app_id)
         return
     except Exception as exc:
         log.error("  Failed to fetch app info for %s: %s", app_id, exc)

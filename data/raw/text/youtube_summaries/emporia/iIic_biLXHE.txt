@@ -4,7 +4,7 @@ URL:      https://www.youtube.com/watch?v=iIic_biLXHE&t=1255s
 App:      emporia
 
 **Summary: Introduction and Background**
-The video begins with a review of the **Emporia Pro, the second-generation EV charger from Emporia**. The host highlights his previous positive experience with Emporia’s original charger, which scored highly on the Charger Raider rating system and was considered an excellent value. The new generation Emporia Pro charger introduces several enhancements, including a new feature called **Power Smart**—an intelligent load-balancing system designed to prevent overdraw on home electrical services, enabling installation even on lower-capacity electrical panels.
+The video begins with a review of the **Emporia Pro, the second-generation EV charger from Emporia**. The host highlights his previous positive experience with Emporia’s original charger, which scored highly on the Charger Raider rating system and was considered an excellent value. The new generation Emporia Pro charger introduces several enhancements, including a new feature called **Power Smart**-an intelligent load-balancing system designed to prevent overdraw on home electrical services, enabling installation even on lower-capacity electrical panels.
 
 ---
 
@@ -46,7 +46,7 @@ The **Power Smart system**, enabled by the Emporia View monitor, allows the char
 
 **Summary: Installation Details**
 - The unit ships with the mounting bracket factory-attached; removal requires unscrewing two bottom screws.
-- Plug-in versions with NEMA 14-50 connectors require no internal wiring — just plug into a matching outlet.
+- Plug-in versions with NEMA 14-50 connectors require no internal wiring - just plug into a matching outlet.
 - Hardwired versions require removing covers: an outer cover (two screws) and an inner weatherproof cover (10 screws with a number 3 Allen key).
 - The unit supports wiring through the back to avoid exposed conduit, resulting in a cleaner installation.
 - Terminal screws must not be torqued beyond $1.2 \text{ N·m}$ (10.6 in-lb).
@@ -55,7 +55,7 @@ The **Power Smart system**, enabled by the Emporia View monitor, allows the char
 ---
 
 **Summary: Power Adjustment Method**
-- The charger’s output power is **adjusted solely through the Emporia app**—there is **no internal hardwired dip switch** to set maximum power, which is a drawback from a safety and inspection standpoint.
+- The charger’s output power is **adjusted solely through the Emporia app**-there is **no internal hardwired dip switch** to set maximum power, which is a drawback from a safety and inspection standpoint.
 - Users must manually configure the maximum allowed current in the app, e.g., 40 amps for a 50 amp circuit with a NEMA 14-50 outlet.
 - Misconfiguration can potentially lead to overloading circuits or violating electrical codes.
 - The app requires a four-digit passcode to prevent unauthorized or accidental adjustment of power limits, providing some security.
@@ -185,13 +185,13 @@ The **Power Smart system**, enabled by the Emporia View monitor, allows the char
 
 - **Misses:**
 - No physical, internal power limit switch (reliant entirely on app configuration).
-- Connector and holster design are average—functional but could be improved in feel, robustness, and mounting ergonomics.
+- Connector and holster design are average-functional but could be improved in feel, robustness, and mounting ergonomics.
 - Lacks immediate availability of Knack connector option (expected by end of the year).
 
 ---
 
 **Summary: Closing Remarks**
-The review wraps up emphasizing the thoroughness of the coverage, acknowledging the review’s length and the availability of a more concise "quick charge" version for viewers who prefer a shorter summary. Viewers are encouraged to subscribe for more electric vehicle news and reviews. The reviewer reiterates the high quality and value of both Emporia chargers, with special praise for the Emporia Pro due to its intelligent load management—a feature increasingly important for modern home installations.
+The review wraps up emphasizing the thoroughness of the coverage, acknowledging the review’s length and the availability of a more concise "quick charge" version for viewers who prefer a shorter summary. Viewers are encouraged to subscribe for more electric vehicle news and reviews. The reviewer reiterates the high quality and value of both Emporia chargers, with special praise for the Emporia Pro due to its intelligent load management-a feature increasingly important for modern home installations.
 
 ---
 

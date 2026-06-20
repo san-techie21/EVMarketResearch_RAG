@@ -57,7 +57,7 @@ App:      tesla_powerwall
 - The grid tab details Powerwall’s import/export activity and tariff usage:
 - Example highlights grid import during off-peak hours, aligned with an EV tariff (Octopus Go).
 - The Powerwall autonomously forecasts weather (weather forecast, solar output, battery state) to decide how much grid energy to import overnight.
-- Users can access a menu (three dots) at top right to download data for further analysis or reporting—useful for EV expense reimbursement or ROI calculations.
+- Users can access a menu (three dots) at top right to download data for further analysis or reporting-useful for EV expense reimbursement or ROI calculations.
 
 **Environmental and Usage Impact Overview**
 - Impact tab summarizes annual or custom-period performance:

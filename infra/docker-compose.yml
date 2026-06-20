@@ -4,7 +4,7 @@
 #   docker compose -f infra/docker-compose.yml up -d         # full stack
 #
 # Brings up Postgres+pgvector with the schema pre-loaded, the FastAPI backend,
-# and the Next.js frontend — no cloud dependency. Configure via infra/.env
+# and the Next.js frontend - no cloud dependency. Configure via infra/.env
 # (copy from infra/.env.example).
 
 services:

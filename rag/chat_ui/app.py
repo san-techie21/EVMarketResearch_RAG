@@ -1,5 +1,5 @@
 """
-Streamlit chat UI — Home Energy & EV App Research assistant.
+Streamlit chat UI - Home Energy & EV App Research assistant.
 Features: login, per-user persistent chat history, new chat, source/app filters.
 
 Run:  streamlit run rag/chat_ui/app.py
@@ -37,7 +37,7 @@ ensure_table()
 ensure_obs_tables()
 
 # ---------------------------------------------------------------------------
-# Page config — must be first Streamlit call
+# Page config - must be first Streamlit call
 # ---------------------------------------------------------------------------
 st.set_page_config(
     page_title="Home Energy & EV App Research",
@@ -47,15 +47,15 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------------------------
-# Global CSS  —  bright light theme, dark sidebar, mobile-first
+# Global CSS  -  bright light theme, dark sidebar, mobile-first
 # ---------------------------------------------------------------------------
 st.markdown("""
 <style>
-/* ════════════════════════════════════════════════════════════════════
+/* ====================================================================
    DESIGN TOKENS
-   ════════════════════════════════════════════════════════════════════ */
+   ==================================================================== */
 :root {
-    /* Sidebar — stays dark */
+    /* Sidebar - stays dark */
     --sb-bg:        #111827;
     --sb-bg-hover:  #1f2937;
     --sb-bg-active: #1e2a3a;
@@ -64,7 +64,7 @@ st.markdown("""
     --sb-text-dim:  #6b7280;
     --sb-text-muted:#374151;
 
-    /* Main area — bright */
+    /* Main area - bright */
     --bg:           #ffffff;
     --bg-surface:   #f8fafc;
     --bg-card:      #f1f5f9;
@@ -87,9 +87,9 @@ st.markdown("""
     --assistant-bg: #ffffff;
 }
 
-/* ════════════════════════════════════════════════════════════════════
+/* ====================================================================
    GLOBAL RESET / BASE
-   ════════════════════════════════════════════════════════════════════ */
+   ==================================================================== */
 html, body, [class*="css"] {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
                  "Helvetica Neue", Arial, sans-serif !important;
@@ -117,9 +117,9 @@ section.main                             { background: var(--bg) !important; }
 [data-testid="stDecoration"],
 #MainMenu, footer, header { display: none !important; }
 
-/* ════════════════════════════════════════════════════════════════════
+/* ====================================================================
    SIDEBAR
-   ════════════════════════════════════════════════════════════════════ */
+   ==================================================================== */
 [data-testid="stSidebar"] {
     background-color: var(--sb-bg) !important;
     border-right: 1px solid #1f2937 !important;
@@ -225,9 +225,9 @@ section.main                             { background: var(--bg) !important; }
     border-color: #4f46e5 !important;
 }
 
-/* ════════════════════════════════════════════════════════════════════
+/* ====================================================================
    SIDEBAR COMPONENTS (HTML)
-   ════════════════════════════════════════════════════════════════════ */
+   ==================================================================== */
 .sb-brand {
     padding: 1rem 1rem 0.8rem 1rem;
     border-bottom: 1px solid #1f2937;
@@ -266,9 +266,9 @@ section.main                             { background: var(--bg) !important; }
     color: #d1d5db !important;
 }
 
-/* ════════════════════════════════════════════════════════════════════
+/* ====================================================================
    TOPBAR
-   ════════════════════════════════════════════════════════════════════ */
+   ==================================================================== */
 .ev-topbar {
     display: flex;
     align-items: center;
@@ -294,9 +294,9 @@ section.main                             { background: var(--bg) !important; }
     text-overflow: ellipsis;
 }
 
-/* ════════════════════════════════════════════════════════════════════
+/* ====================================================================
    THREE-DOT POPOVER
-   ════════════════════════════════════════════════════════════════════ */
+   ==================================================================== */
 [data-testid="stPopover"] button {
     background: var(--bg) !important;
     border: 1px solid var(--border) !important;
@@ -347,9 +347,9 @@ section.main                             { background: var(--bg) !important; }
     margin: 0.5rem 0 !important;
 }
 
-/* ════════════════════════════════════════════════════════════════════
+/* ====================================================================
    CHAT MESSAGES
-   ════════════════════════════════════════════════════════════════════ */
+   ==================================================================== */
 
 /* Container */
 [data-testid="stChatMessage"] {
@@ -374,7 +374,7 @@ section.main                             { background: var(--bg) !important; }
     color: var(--text-2) !important;
 }
 
-/* Headings — readable scale, dark color */
+/* Headings - readable scale, dark color */
 [data-testid="stChatMessage"] h1 {
     font-size: 1.15rem   !important;
     font-weight: 700     !important;
@@ -409,7 +409,7 @@ section.main                             { background: var(--bg) !important; }
     margin-bottom: 0.15rem !important;
 }
 
-/* Tables — scrollable on mobile */
+/* Tables - scrollable on mobile */
 [data-testid="stChatMessage"] table {
     font-size: 0.85rem   !important;
     width: 100%;
@@ -473,9 +473,9 @@ section.main                             { background: var(--bg) !important; }
     color: var(--text-2) !important;
 }
 
-/* ════════════════════════════════════════════════════════════════════
+/* ====================================================================
    TOKEN INFO
-   ════════════════════════════════════════════════════════════════════ */
+   ==================================================================== */
 .token-info {
     font-size: 0.71rem;
     color: var(--text-3);
@@ -483,9 +483,9 @@ section.main                             { background: var(--bg) !important; }
     line-height: 1.5;
 }
 
-/* ════════════════════════════════════════════════════════════════════
+/* ====================================================================
    SOURCE EXPANDER (citations)
-   ════════════════════════════════════════════════════════════════════ */
+   ==================================================================== */
 .streamlit-expanderHeader {
     background: var(--bg-surface) !important;
     color: var(--text-2) !important;
@@ -507,9 +507,9 @@ section.main                             { background: var(--bg) !important; }
     font-size: 0.81rem  !important;
 }
 
-/* ════════════════════════════════════════════════════════════════════
+/* ====================================================================
    EXAMPLE QUESTION PILLS
-   ════════════════════════════════════════════════════════════════════ */
+   ==================================================================== */
 .stButton button[data-testid="baseButton-secondary"] {
     font-size: 0.83rem    !important;
     padding: 0.55rem 0.75rem !important;
@@ -532,9 +532,9 @@ section.main                             { background: var(--bg) !important; }
     box-shadow: 0 2px 6px rgba(79,70,229,0.12) !important;
 }
 
-/* ════════════════════════════════════════════════════════════════════
+/* ====================================================================
    CHAT INPUT
-   ════════════════════════════════════════════════════════════════════ */
+   ==================================================================== */
 [data-testid="stChatInput"] {
     border-radius: 12px          !important;
     border: 1.5px solid var(--border) !important;
@@ -564,9 +564,9 @@ section.main                             { background: var(--bg) !important; }
     background: var(--accent-hover) !important;
 }
 
-/* ════════════════════════════════════════════════════════════════════
+/* ====================================================================
    STATUS WIDGET
-   ════════════════════════════════════════════════════════════════════ */
+   ==================================================================== */
 [data-testid="stStatusWidget"],
 [data-testid="stStatusWidget"] > div {
     background: var(--bg-surface) !important;
@@ -579,9 +579,9 @@ section.main                             { background: var(--bg) !important; }
     font-size: 0.83rem   !important;
 }
 
-/* ════════════════════════════════════════════════════════════════════
+/* ====================================================================
    LOGIN PAGE
-   ════════════════════════════════════════════════════════════════════ */
+   ==================================================================== */
 .login-outer {
     display: flex;
     justify-content: center;
@@ -647,9 +647,9 @@ section.main                             { background: var(--bg) !important; }
     background: var(--accent-hover) !important;
 }
 
-/* ════════════════════════════════════════════════════════════════════
+/* ====================================================================
    EMPTY STATE
-   ════════════════════════════════════════════════════════════════════ */
+   ==================================================================== */
 .empty-header {
     text-align: center;
     padding: 2.5rem 0 1.2rem 0;
@@ -675,9 +675,9 @@ section.main                             { background: var(--bg) !important; }
     margin-bottom: 0.5rem;
 }
 
-/* ════════════════════════════════════════════════════════════════════
+/* ====================================================================
    MOBILE  ( ≤ 640 px )
-   ════════════════════════════════════════════════════════════════════ */
+   ==================================================================== */
 @media (max-width: 640px) {
     .block-container {
         padding-left:  0.85rem !important;
@@ -835,7 +835,7 @@ EXAMPLE_QUESTIONS = [
 # ---------------------------------------------------------------------------
 with st.sidebar:
 
-    # ── Branding ───────────────────────────────────────────────────────────
+    # -- Branding -----------------------------------------------------------
     st.markdown("""
     <div class="sb-brand">
         <p class="sb-brand-title">⚡ Home Energy &amp; EV Research</p>
@@ -843,14 +843,14 @@ with st.sidebar:
     </div>
     """, unsafe_allow_html=True)
 
-    # ── New Chat ───────────────────────────────────────────────────────────
+    # -- New Chat -----------------------------------------------------------
     st.markdown("<div style='padding: 0.5rem 0 0.25rem 0;'>", unsafe_allow_html=True)
     if st.button("＋  New Chat", use_container_width=True, type="primary", key="new_chat_btn"):
         start_new_chat()
         st.rerun()
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # ── Recent Chats ───────────────────────────────────────────────────────
+    # -- Recent Chats -------------------------------------------------------
     sessions = list_sessions(username)
     if sessions:
         st.markdown(
@@ -879,7 +879,7 @@ with st.sidebar:
 
     st.divider()
 
-    # ── Knowledge Base ────────────────────────────────────────────────────
+    # -- Knowledge Base ----------------------------------------------------
     with st.expander("Knowledge Base", expanded=False):
         kb_counts = _get_kb_counts()
         st.markdown(
@@ -891,12 +891,12 @@ with st.sidebar:
             f"**Total** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **{kb_counts:,}**"
         )
 
-    # ── Search Settings ───────────────────────────────────────────────────
+    # -- Search Settings ---------------------------------------------------
     with st.expander("Search Settings", expanded=True):
         comparison_mode = st.toggle(
             "Comparison mode",
             value=False,
-            help="Fetches top chunks from every app — best for cross-app questions.",
+            help="Fetches top chunks from every app - best for cross-app questions.",
         )
 
         category_choice = st.selectbox("Category", CATEGORY_OPTIONS, key="category_choice")
@@ -933,7 +933,7 @@ with st.sidebar:
             n_per_app = None
             _app_pool = None
 
-    # ── User block ────────────────────────────────────────────────────────
+    # -- User block --------------------------------------------------------
     st.markdown(f"""
     <div class="sb-user">
         <div class="sb-user-avatar">{display_name[0].upper()}</div>
@@ -943,7 +943,7 @@ with st.sidebar:
 
 
 # ---------------------------------------------------------------------------
-# MAIN — topbar
+# MAIN - topbar
 # ---------------------------------------------------------------------------
 topbar_left, topbar_right = st.columns([6, 1])
 
@@ -986,7 +986,7 @@ with topbar_right:
 
 
 # ---------------------------------------------------------------------------
-# MAIN — chat area
+# MAIN - chat area
 # ---------------------------------------------------------------------------
 
 # Empty state
@@ -1016,7 +1016,7 @@ for msg in st.session_state.messages:
                 cache_read = u.get("cache_read_input_tokens", 0)
                 cache_str  = f" · cache read {cache_read:,}" if cache_read else ""
                 st.markdown(
-                    f"<p class='token-info'>Tokens — "
+                    f"<p class='token-info'>Tokens - "
                     f"in {u.get('input_tokens', 0):,} · "
                     f"out {u.get('output_tokens', 0):,} · "
                     f"total {u.get('total_tokens', 0):,}"
@@ -1054,7 +1054,7 @@ if prompt:
             try:
                 if comparison_mode:
                     n_apps = len(_app_pool) if _app_pool else len(ALL_EV_APPS + ALL_PROSUMER_APPS)
-                    st.write(f"Comparison mode — {n_per_app} chunks × {n_apps} apps...")
+                    st.write(f"Comparison mode - {n_per_app} chunks × {n_apps} apps...")
                     chunks = retrieve_per_app(prompt, n_per_app=n_per_app,
                                               category_filter=category_filter)
                 elif source_filter:
@@ -1095,7 +1095,7 @@ if prompt:
                 for c in chunks
             ]
 
-        # ── Observability: log every query (with context for RAGAs eval) ──
+        # -- Observability: log every query (with context for RAGAs eval) --
         _scores   = [float(c["score"]) for c in chunks] if chunks else []
         _ctx_snap = [
             {"source": c["source"], "app_name": c["app_name"],
@@ -1128,7 +1128,7 @@ if prompt:
             cache_read = usage.get("cache_read_input_tokens", 0)
             cache_str  = f" · cache read {cache_read:,}" if cache_read else ""
             st.markdown(
-                f"<p class='token-info'>Tokens — "
+                f"<p class='token-info'>Tokens - "
                 f"in {usage['input_tokens']:,} · "
                 f"out {usage['output_tokens']:,} · "
                 f"total {usage['total_tokens']:,}"

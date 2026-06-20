@@ -1,4 +1,4 @@
-# EV Market Research RAG System — Full Project Log
+# EV Market Research RAG System - Full Project Log
 
 > Last updated: 2026-06-07
 > A complete record of everything built, every decision made, and all problems solved across all sessions.
@@ -37,7 +37,7 @@ A **Retrieval-Augmented Generation (RAG)** knowledge base for competitive intell
 
 ---
 
-## Knowledge Base (Postgres) — Current State
+## Knowledge Base (Postgres) - Current State
 
 **11,322 chunks total** in `document_chunks` table on DO Managed Postgres (blr1)
 
@@ -58,82 +58,82 @@ Each chunk: 512 tokens, 64-token overlap, `tiktoken cl100k_base`
 
 ```
 C:\EVMarketResearch\
-├── config/
-│   ├── .env                           LIVE — all credentials set
-│   └── users.yaml                     bcrypt-hashed user credentials
-├── pipeline/
-│   ├── scrapers/
-│   │   ├── google_play.py             DONE — scrapes Google Play reviews
-│   │   ├── app_store.py               DONE — scrapes App Store reviews
-│   │   ├── news_rss.py                DONE — RSS feed scraper
-│   │   ├── youtube.py                 DONE (yt-dlp) — IP-rate-limited, don't re-run
-│   │   ├── web_pages.py               DONE (Firecrawl) — official website scraper
-│   │   ├── parse_transcripts.py       DONE — manual YouTube transcript parser
-│   │   └── ingest_youtube_summaries.py DONE — ingests from youtube_summaries/ folder
-│   ├── processing/
-│   │   ├── chunker.py                 DONE — 512 tok / 64 overlap
-│   │   └── embedder.py                DONE — bge-small-en-v1.5, 384 dims
-│   └── ingestion/
-│       └── upsert.py                  DONE
-├── rag/
-│   ├── retriever.py                   DONE — embed → pgvector → Claude
-│   ├── api/query.py                   DONE — FastAPI POST /query
-│   └── chat_ui/
-│       ├── app.py                     DONE — Streamlit multi-user UI
-│       └── session_db.py              DONE — Postgres chat session persistence
-├── utils/
-│   └── manage_users.py                DONE — bcrypt password hash generator
-└── data/raw/text/
-    ├── google_play/   7 app folders, reviews.json each
-    ├── app_store/     9 app folders, reviews.json each
-    ├── news/          9 app folders + _general, articles.json each
-    ├── youtube/       6 app folders, transcripts.json each (21 videos)
-    ├── youtube_summaries/             NEW dedicated folder for curated summaries
-    │   ├── chargepoint/  (3 .txt files)
-    │   ├── evgo/         (2 .txt files)
-    │   ├── tesla/        (4 .txt files)
-    │   ├── plugshare/    (2 .txt files)
-    │   ├── shell_recharge/ (3 .txt files)
-    │   └── general/      (1 .txt file)
-    └── web_pages/     9 app folders, pages.json each (25 pages)
+├-- config/
+│   ├-- .env                           LIVE - all credentials set
+│   └-- users.yaml                     bcrypt-hashed user credentials
+├-- pipeline/
+│   ├-- scrapers/
+│   │   ├-- google_play.py             DONE - scrapes Google Play reviews
+│   │   ├-- app_store.py               DONE - scrapes App Store reviews
+│   │   ├-- news_rss.py                DONE - RSS feed scraper
+│   │   ├-- youtube.py                 DONE (yt-dlp) - IP-rate-limited, don't re-run
+│   │   ├-- web_pages.py               DONE (Firecrawl) - official website scraper
+│   │   ├-- parse_transcripts.py       DONE - manual YouTube transcript parser
+│   │   └-- ingest_youtube_summaries.py DONE - ingests from youtube_summaries/ folder
+│   ├-- processing/
+│   │   ├-- chunker.py                 DONE - 512 tok / 64 overlap
+│   │   └-- embedder.py                DONE - bge-small-en-v1.5, 384 dims
+│   └-- ingestion/
+│       └-- upsert.py                  DONE
+├-- rag/
+│   ├-- retriever.py                   DONE - embed → pgvector → Claude
+│   ├-- api/query.py                   DONE - FastAPI POST /query
+│   └-- chat_ui/
+│       ├-- app.py                     DONE - Streamlit multi-user UI
+│       └-- session_db.py              DONE - Postgres chat session persistence
+├-- utils/
+│   └-- manage_users.py                DONE - bcrypt password hash generator
+└-- data/raw/text/
+    ├-- google_play/   7 app folders, reviews.json each
+    ├-- app_store/     9 app folders, reviews.json each
+    ├-- news/          9 app folders + _general, articles.json each
+    ├-- youtube/       6 app folders, transcripts.json each (21 videos)
+    ├-- youtube_summaries/             NEW dedicated folder for curated summaries
+    │   ├-- chargepoint/  (3 .txt files)
+    │   ├-- evgo/         (2 .txt files)
+    │   ├-- tesla/        (4 .txt files)
+    │   ├-- plugshare/    (2 .txt files)
+    │   ├-- shell_recharge/ (3 .txt files)
+    │   └-- general/      (1 .txt file)
+    └-- web_pages/     9 app folders, pages.json each (25 pages)
 ```
 
 ---
 
-## Everything Built — Session by Session
+## Everything Built - Session by Session
 
-### Session 1 — Foundation
+### Session 1 - Foundation
 - Set up DigitalOcean Managed Postgres with pgvector extension
 - Built Google Play scraper → collected reviews for 7 apps
 - Built App Store scraper → collected reviews for 9 apps
 - Built News RSS scraper → collected articles for 9 apps + general
 - Set up chunker (512 tok / 64 overlap) and embedder (bge-small-en-v1.5)
 - Built upsert pipeline and loaded first ~11k chunks
-- Built `rag/retriever.py` — core embed→search→Claude logic
+- Built `rag/retriever.py` - core embed→search→Claude logic
 - Built FastAPI endpoint at `rag/api/query.py`
 - Built first Streamlit UI at `rag/chat_ui/app.py`
 
-**Critical fix discovered:** `load_dotenv` must use `override=True` in `rag/retriever.py` — `ANTHROPIC_API_KEY` was already set to empty string in Windows system environment. Without override, the empty value wins and all Claude API calls fail with auth error.
+**Critical fix discovered:** `load_dotenv` must use `override=True` in `rag/retriever.py` - `ANTHROPIC_API_KEY` was already set to empty string in Windows system environment. Without override, the empty value wins and all Claude API calls fail with auth error.
 
-### Session 2 — Web Pages + YouTube
+### Session 2 - Web Pages + YouTube
 - Built Firecrawl-based web page scraper → 25 pages scraped, 112 chunks
-- Discovered some pages near-empty (EVgo: 246 chars, PlugShare: 133 chars) — Firecrawl limitation
-- Built YouTube scraper (`youtube.py` using yt-dlp) — immediately IP-rate-limited by YouTube
+- Discovered some pages near-empty (EVgo: 246 chars, PlugShare: 133 chars) - Firecrawl limitation
+- Built YouTube scraper (`youtube.py` using yt-dlp) - immediately IP-rate-limited by YouTube
 - Manually curated 21 YouTube transcripts and parsed them via `parse_transcripts.py`
 - Loaded YouTube transcripts into Postgres (original batch, later replaced)
 
-### Session 3 — YouTube Retrieval Debugging + UI
-**Problem:** YouTube chunks weren't being retrieved — RAG responses claimed "no YouTube data in knowledge base"
+### Session 3 - YouTube Retrieval Debugging + UI
+**Problem:** YouTube chunks weren't being retrieved - RAG responses claimed "no YouTube data in knowledge base"
 
 **Root causes found and fixed:**
 1. SYSTEM_PROMPT only listed 3 source types (not youtube/web_pages) → Claude didn't know to use them
 2. Streamlit slider was hardcoded to pass `top_k=8` directly, ignoring the `TOP_K=12` env var
 3. Stale `__pycache__` bytecode causing old code to run after edits
-4. `YT_MIN_SCORE=0.60` was too high — YouTube chunks scored 0.563–0.587 (just below threshold)
+4. `YT_MIN_SCORE=0.60` was too high - YouTube chunks scored 0.563-0.587 (just below threshold)
 
 **Fixes applied to `rag/retriever.py`:**
 - Lowered `YT_MIN_SCORE` to `0.50`
-- Added `_YT_KEYWORDS` set — auto-detects YouTube-focused queries and bumps `min_youtube` from 2 → 6
+- Added `_YT_KEYWORDS` set - auto-detects YouTube-focused queries and bumps `min_youtube` from 2 → 6
 - Added `retrieve_by_source()` function for explicit source filtering
 - Raised default `TOP_K` to 12
 - Added SYSTEM_PROMPT entries for all 5 source types
@@ -148,12 +148,12 @@ C:\EVMarketResearch\
 **Added to Streamlit UI:**
 - Source filter dropdown: All / youtube / google_play / app_store / news / web_pages
 
-### Session 4 — Auth + Session Persistence + Token Display + UI Redesign
+### Session 4 - Auth + Session Persistence + Token Display + UI Redesign
 
 **User authentication:**
 - Added `streamlit-authenticator` library with bcrypt password hashing
 - Credentials stored in `config/users.yaml` (bcrypt hashes, never plain text)
-- `utils/manage_users.py` — helper script to generate hashes; edit `USERS` dict, run, copy output to yaml
+- `utils/manage_users.py` - helper script to generate hashes; edit `USERS` dict, run, copy output to yaml
 - Login page replaces app until authenticated; cookie-based session (30-day expiry)
 
 **Default users:**
@@ -169,7 +169,7 @@ C:\EVMarketResearch\
 - Sidebar shows past chats per user, ordered by most recently updated
 - "New Chat" button creates fresh session
 - Session title auto-set from first question (truncated to 60 chars)
-- `ensure_table()` called on startup — idempotent, safe
+- `ensure_table()` called on startup - idempotent, safe
 
 **Token usage display:**
 - `generate_answer()` in `retriever.py` now returns `tuple[str, dict]`
@@ -189,9 +189,9 @@ C:\EVMarketResearch\
   - Popover shows display name, @username, divider, Sign out button
   - Replaces old username badge in top-left corner
 
-**Bug fixed:** `NameError: name 'MODEL' is not defined` — `MODEL` was defined in `retriever.py` but not imported into `app.py`. Added `MODEL` to the import line.
+**Bug fixed:** `NameError: name 'MODEL' is not defined` - `MODEL` was defined in `retriever.py` but not imported into `app.py`. Added `MODEL` to the import line.
 
-### Session 5 — DigitalOcean Deployment
+### Session 5 - DigitalOcean Deployment
 
 **Droplet details:**
 - Provider: DigitalOcean
@@ -209,7 +209,7 @@ C:\EVMarketResearch\
 **Server setup steps completed:**
 1. Created directory structure at `/opt/ev-research/`
 2. Uploaded all code files via `scp`
-3. Discovered Ubuntu 22.04 apt had Python 3.11.0rc1 (release candidate!) — caused `torch` `AttributeError: sys.get_int_max_str_digits` 
+3. Discovered Ubuntu 22.04 apt had Python 3.11.0rc1 (release candidate!) - caused `torch` `AttributeError: sys.get_int_max_str_digits` 
 4. Fixed by using Python 3.10.12 (stable): `apt install python3.10-venv`, recreated venv
 5. Installed all packages without version pins (avoiding Windows-pinned version conflicts):
    - streamlit 1.58.0, anthropic 0.107.0, psycopg2-binary, sentence-transformers
@@ -217,7 +217,7 @@ C:\EVMarketResearch\
 6. Smoke test passed: all imports OK, DB URL set, Anthropic key set
 7. Created systemd service `/etc/systemd/system/ev-research.service`
 8. Configured nginx reverse proxy `/etc/nginx/sites-available/ev-research` (port 80 → 8501, WebSocket headers)
-9. Enabled and started both services — both running
+9. Enabled and started both services - both running
 10. HTTP health check: 200 OK on both port 8501 and port 80
 
 **Server management commands:**
@@ -258,26 +258,26 @@ scp -i "C:\Users\Admin\.ssh\ev_research_do" rag/chat_ui/app.py root@168.144.26.7
 
 ## Key Technical Gotchas (Hard-Won Knowledge)
 
-1. **`load_dotenv` must use `override=True`** in `rag/retriever.py` — `ANTHROPIC_API_KEY` was pre-set to empty string in Windows system env. Without override, the empty value wins → auth failure.
+1. **`load_dotenv` must use `override=True`** in `rag/retriever.py` - `ANTHROPIC_API_KEY` was pre-set to empty string in Windows system env. Without override, the empty value wins → auth failure.
 
-2. **Clear `__pycache__` on import errors** — stale bytecode causes old code to run after edits:
+2. **Clear `__pycache__` on import errors** - stale bytecode causes old code to run after edits:
    ```powershell
    Remove-Item -Recurse -Force rag\__pycache__, rag\chat_ui\__pycache__, rag\api\__pycache__
    ```
 
-3. **YouTube scraper is IP-rate-limited** — `youtube.py` is correct but YouTube blocks transcript access from this IP. Don't re-run without ~1hr wait. The 21 video transcripts were added manually.
+3. **YouTube scraper is IP-rate-limited** - `youtube.py` is correct but YouTube blocks transcript access from this IP. Don't re-run without ~1hr wait. The 21 video transcripts were added manually.
 
-4. **YouTube chunks are a tiny minority** (107 / 11,322 = 0.9%) — pure cosine top-K always drowns them out. Fix: `min_youtube` guarantee logic + `YT_MIN_SCORE=0.50` + keyword auto-detection in `retriever.py`.
+4. **YouTube chunks are a tiny minority** (107 / 11,322 = 0.9%) - pure cosine top-K always drowns them out. Fix: `min_youtube` guarantee logic + `YT_MIN_SCORE=0.50` + keyword auto-detection in `retriever.py`.
 
-5. **Model name is `claude-sonnet-4-6`** — not `claude-3-5-sonnet` or `claude-sonnet-4-20250514` (retired).
+5. **Model name is `claude-sonnet-4-6`** - not `claude-3-5-sonnet` or `claude-sonnet-4-20250514` (retired).
 
-6. **Python version on Ubuntu** — `apt install python3.11` gives 3.11.0rc1 (release candidate), which breaks `torch`. Always use `python3.10` on Ubuntu 22.04.
+6. **Python version on Ubuntu** - `apt install python3.11` gives 3.11.0rc1 (release candidate), which breaks `torch`. Always use `python3.10` on Ubuntu 22.04.
 
-7. **Do NOT re-run** scrapers or `setup_db.py` / `update_schema.py` — data is live in production.
+7. **Do NOT re-run** scrapers or `setup_db.py` / `update_schema.py` - data is live in production.
 
-8. **Do NOT change** embedding model or vector dimensions — 384-dim is baked into all 11,322 existing chunks.
+8. **Do NOT change** embedding model or vector dimensions - 384-dim is baked into all 11,322 existing chunks.
 
-9. **Streamlit WebSocket** — nginx must pass `Upgrade` and `Connection: upgrade` headers, or the Streamlit app shows a blank page / disconnects immediately.
+9. **Streamlit WebSocket** - nginx must pass `Upgrade` and `Connection: upgrade` headers, or the Streamlit app shows a blank page / disconnects immediately.
 
 ---
 
@@ -331,13 +331,13 @@ conn.close()
 
 ## Pending / Next Session Ideas
 
-- [ ] **Add more YouTube content** — 3 apps still have no video coverage: Blink, FLO, EVCS
-- [ ] **Better web page coverage** — Firecrawl returned near-empty pages for EVgo and PlugShare. Retry with different URLs or `wait_for` parameter
-- [ ] **Export / report feature** — export RAG conversation as a formatted PDF/DOCX report
-- [ ] **HTTPS / domain** — currently HTTP only (port 80). Could add Let's Encrypt SSL via certbot if a domain is purchased
-- [ ] **More Google Play / App Store reviews** — could expand scrape depth for newer reviews
-- [ ] **Prompt tuning** — system prompt could be improved with more specific instructions for comparison queries
-- [ ] **Cost optimization** — token usage is visible per query; could experiment with prompt compression or caching for repeated questions
+- [ ] **Add more YouTube content** - 3 apps still have no video coverage: Blink, FLO, EVCS
+- [ ] **Better web page coverage** - Firecrawl returned near-empty pages for EVgo and PlugShare. Retry with different URLs or `wait_for` parameter
+- [ ] **Export / report feature** - export RAG conversation as a formatted PDF/DOCX report
+- [ ] **HTTPS / domain** - currently HTTP only (port 80). Could add Let's Encrypt SSL via certbot if a domain is purchased
+- [ ] **More Google Play / App Store reviews** - could expand scrape depth for newer reviews
+- [ ] **Prompt tuning** - system prompt could be improved with more specific instructions for comparison queries
+- [ ] **Cost optimization** - token usage is visible per query; could experiment with prompt compression or caching for repeated questions
 
 ---
 
@@ -345,26 +345,26 @@ conn.close()
 
 ```
 retrieve(question, app_filter, top_k=12, min_youtube=2)
-  └── embed question (bge-small-en-v1.5, local)
-  └── cosine similarity search in pgvector (top_k chunks)
-  └── if no app_filter and min_youtube > 0:
+  └-- embed question (bge-small-en-v1.5, local)
+  └-- cosine similarity search in pgvector (top_k chunks)
+  └-- if no app_filter and min_youtube > 0:
         check YouTube representation; fetch extras if short
         only include extras with score >= 0.50
-  └── if "youtube/video/transcript" in question: bump min_youtube to 6
-  └── sort all chunks by score DESC → return
+  └-- if "youtube/video/transcript" in question: bump min_youtube to 6
+  └-- sort all chunks by score DESC → return
 
 retrieve_per_app(question, n_per_app=3)
-  └── runs one query per app (9 apps), fetches top n_per_app each
-  └── used for comparison mode (guarantees all-app coverage)
+  └-- runs one query per app (9 apps), fetches top n_per_app each
+  └-- used for comparison mode (guarantees all-app coverage)
 
 retrieve_by_source(question, source, top_k=12)
-  └── filters WHERE source = 'youtube' (or any source)
-  └── used by explicit source filter dropdown in UI
+  └-- filters WHERE source = 'youtube' (or any source)
+  └-- used by explicit source filter dropdown in UI
 
 generate_answer(question, chunks) → (answer_text, usage_dict)
-  └── formats chunks as context with [source | app | score] headers
-  └── calls claude-sonnet-4-6 with SYSTEM_PROMPT + context + question
-  └── returns answer text + token usage dict
+  └-- formats chunks as context with [source | app | score] headers
+  └-- calls claude-sonnet-4-6 with SYSTEM_PROMPT + context + question
+  └-- returns answer text + token usage dict
 ```
 
 ---

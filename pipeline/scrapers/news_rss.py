@@ -1,5 +1,5 @@
 """
-News scraper using Google News RSS feeds — no API key required.
+News scraper using Google News RSS feeds - no API key required.
 Fetches recent news articles for each target EV charging app.
 
 v2: Full article body extraction via trafilatura.  Each article URL is followed
@@ -85,7 +85,7 @@ def fetch_article_body(url: str) -> str:
     """
     Fetch the full article body from a URL using trafilatura.
     Returns empty string if extraction fails (paywall, JS-only, network error, etc.).
-    Falls back gracefully — callers should use title+description when body is empty.
+    Falls back gracefully - callers should use title+description when body is empty.
     """
     if not _TRAFILATURA_AVAILABLE or not url:
         return ""
@@ -150,7 +150,7 @@ def enrich_with_bodies(articles: list[dict]) -> list[dict]:
     Skips articles that already have a non-empty body (idempotent on re-runs).
     """
     if not _TRAFILATURA_AVAILABLE:
-        log.warning("trafilatura not installed — skipping full-body extraction. "
+        log.warning("trafilatura not installed - skipping full-body extraction. "
                     "Run: pip install trafilatura")
         return articles
 
@@ -248,19 +248,19 @@ def main() -> None:
     parser.add_argument("--app", nargs="+", choices=list(APP_QUERIES.keys()),
                         help="Scrape specific apps only (default: all)")
     parser.add_argument("--no-body", action="store_true",
-                        help="Skip full-body extraction (fast, RSS titles only — legacy mode)")
+                        help="Skip full-body extraction (fast, RSS titles only - legacy mode)")
     args = parser.parse_args()
 
     fetch_body = not args.no_body
     if fetch_body and not _TRAFILATURA_AVAILABLE:
-        log.warning("trafilatura not installed — falling back to RSS titles only. "
+        log.warning("trafilatura not installed - falling back to RSS titles only. "
                     "Install with: pip install trafilatura")
         fetch_body = False
 
     if fetch_body:
         log.info("Full article body extraction ENABLED (trafilatura)")
     else:
-        log.info("Body extraction DISABLED — RSS headlines only")
+        log.info("Body extraction DISABLED - RSS headlines only")
 
     targets = {k: v for k, v in APP_QUERIES.items()
                if not args.app or k in args.app}

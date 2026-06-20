@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # ── Copy changed files to server ─────────────────────────────────────
+      # -- Copy changed files to server -------------------------------------
       - name: Set up SSH key
         run: |
           mkdir -p ~/.ssh
@@ -42,7 +42,7 @@ jobs:
             systemctl is-active ev-research && echo "✅ Service is running" || (echo "❌ Service failed to start"; journalctl -u ev-research -n 20; exit 1)
           REMOTE
 
-      # ── Health check ─────────────────────────────────────────────────────
+      # -- Health check -----------------------------------------------------
       - name: Health check
         run: |
           sleep 5
@@ -51,10 +51,10 @@ jobs:
           if [ "$STATUS" = "200" ] || [ "$STATUS" = "302" ]; then
             echo "✅ Health check passed"
           else
-            echo "⚠️  Unexpected status $STATUS — check server logs"
+            echo "⚠️  Unexpected status $STATUS - check server logs"
           fi
 
-      # ── Notify on failure ─────────────────────────────────────────────────
+      # -- Notify on failure -------------------------------------------------
       - name: Notify on failure
         if: failure()
-        run: echo "::error::Deployment failed — check logs above"
+        run: echo "::error::Deployment failed - check logs above"

@@ -25,14 +25,14 @@ He highlights that at the River House, both Sense and Emporia Vue monitors are i
 ---
 
 **Energy Usage Agreement and Voltage Monitoring:**
-At the River House, Emporia Vue reports about **1180 watts**, Sense shows **1200 watts** at the same time, showing small discrepancies (~2%). Nate suspects that **Sense likely has better voltage monitoring accuracy**—a point in Sense’s favor.
+At the River House, Emporia Vue reports about **1180 watts**, Sense shows **1200 watts** at the same time, showing small discrepancies (~2%). Nate suspects that **Sense likely has better voltage monitoring accuracy**-a point in Sense’s favor.
 
 However, Nate’s **primary criticism of Sense is its poor detection of variable electrical loads**, critical in modern electrification with items like **variable speed heat pumps**. He states the Sense monitor has missed these loads repeatedly over years, diminishing its utility for full load insight.
 
 ---
 
 **Limitations in Sense Device Detection:**
-Nate illustrates with examples, such as his Chevy Volt EV charging sessions, where Sense failed to detect the charging about half the time—despite clear power draw patterns. This problem also extends to variable speed heat pumps, which Sense does not individually identify or track accurately.
+Nate illustrates with examples, such as his Chevy Volt EV charging sessions, where Sense failed to detect the charging about half the time-despite clear power draw patterns. This problem also extends to variable speed heat pumps, which Sense does not individually identify or track accurately.
 
 Technical detail:
 - Sense uses just **two current clamps** on the main power inputs ("two mains").
@@ -50,7 +50,7 @@ Emporia, by contrast, deletes granular second- and minute-level data within a fe
 ---
 
 **Sense App Features and Issues:**
-The Sense app’s visualization – such as its “bubbles” for devices – is praised for its slick interface and ease of seeing device power draws. However, Nate reports Sense sometimes misattributes devices (e.g., detecting nine or ten window air conditioners when only three exist), and he found device naming refinement tedious.
+The Sense app’s visualization - such as its “bubbles” for devices - is praised for its slick interface and ease of seeing device power draws. However, Nate reports Sense sometimes misattributes devices (e.g., detecting nine or ten window air conditioners when only three exist), and he found device naming refinement tedious.
 
 Nate also points out **frequent connectivity/reliability problems with Sense**, which sometimes stops working for weeks. This is despite the Sense monitor being installed near the internet router, but embedded inside a panel box which likely reduces antenna effectiveness.
 
@@ -84,7 +84,7 @@ Emporia Vue permits granular monitoring of individual circuits through its multi
 
 Smart plugs integrate with Emporia and can measure device-level power consumption remotely, enabling control and scheduling, a feature Nate values especially in his Airbnb setups.
 
-This granular monitoring enables Nate to track heating contributions by individual thermostats/rooms—an insight that is difficult or impossible to attain with Sense.
+This granular monitoring enables Nate to track heating contributions by individual thermostats/rooms-an insight that is difficult or impossible to attain with Sense.
 
 ---
 

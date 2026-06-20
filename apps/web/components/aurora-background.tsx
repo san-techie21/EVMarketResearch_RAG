@@ -41,7 +41,7 @@ export function AuroraBackground() {
         }}
       />
 
-      {/* drifting colour orbs — far layer */}
+      {/* drifting colour orbs - far layer */}
       <motion.div className="absolute inset-0" style={{ x: x1, y: y1 }}>
         <div
           className="absolute -top-40 -left-32 h-[42rem] w-[42rem] rounded-full opacity-60 blur-[120px]"

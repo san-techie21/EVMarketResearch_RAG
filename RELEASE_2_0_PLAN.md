@@ -1,4 +1,4 @@
-# Release 2.0 — Prosumer Apps Expansion
+# Release 2.0 - Prosumer Apps Expansion
 ## Implementation plan for next session
 
 Read this entire file before doing anything. This is a self-contained brief.
@@ -8,8 +8,8 @@ Read this entire file before doing anything. This is a self-contained brief.
 ## What this release does
 
 Expands the RAG system from **EV charging apps only** to **two categories**:
-- `ev_charging` — ChargePoint, EVgo, Blink, PlugShare, Electrify America, FLO, EVCS, Shell Recharge, Tesla
-- `prosumer` — Tesla Powerwall, Enphase Enlighten, SolarEdge mySolarEdge, Emporia Energy, Sense, SunPower, Generac PWRview, Span
+- `ev_charging` - ChargePoint, EVgo, Blink, PlugShare, Electrify America, FLO, EVCS, Shell Recharge, Tesla
+- `prosumer` - Tesla Powerwall, Enphase Enlighten, SolarEdge mySolarEdge, Emporia Energy, Sense, SunPower, Generac PWRview, Span
 
 The backend architecture is **unchanged**. This is mostly a configuration + data + UI change.
 
@@ -19,24 +19,24 @@ The backend architecture is **unchanged**. This is mostly a configuration + data
 
 - **Branch:** work on `dev`, release from `release/v2.0.0` → `main` → tag `v2.0.0`
 - **Postgres:** `document_chunks` table, 11,322 chunks, pgvector, blr1 DO cluster
-- **Embedding:** BAAI/bge-small-en-v1.5, 384 dims — DO NOT CHANGE
+- **Embedding:** BAAI/bge-small-en-v1.5, 384 dims - DO NOT CHANGE
 - **LLM:** claude-sonnet-4-6
 - **UI:** Streamlit at https://168.144.26.72
 - **Key files:**
-  - `rag/retriever.py` — SYSTEM_PROMPT, ALL_APPS, retrieve functions
-  - `rag/chat_ui/app.py` — sidebar filters (app, source, comparison mode)
-  - `pipeline/run_pipeline.py` — SOURCE_READERS dict, all ingestion logic
-  - `pipeline/scrapers/` — google_play.py, app_store.py, news_rss.py, web_pages.py, youtube.py
-  - `rag/chat_ui/pipeline_db.py` — SOURCES list
-  - `rag/chat_ui/pages/1_Admin_Portal.py` — APPS list, SOURCE_META
-  - `config/.env` — all credentials (live, do not regenerate)
-  - `config/users.yaml` — user accounts with bcrypt passwords
+  - `rag/retriever.py` - SYSTEM_PROMPT, ALL_APPS, retrieve functions
+  - `rag/chat_ui/app.py` - sidebar filters (app, source, comparison mode)
+  - `pipeline/run_pipeline.py` - SOURCE_READERS dict, all ingestion logic
+  - `pipeline/scrapers/` - google_play.py, app_store.py, news_rss.py, web_pages.py, youtube.py
+  - `rag/chat_ui/pipeline_db.py` - SOURCES list
+  - `rag/chat_ui/pages/1_Admin_Portal.py` - APPS list, SOURCE_META
+  - `config/.env` - all credentials (live, do not regenerate)
+  - `config/users.yaml` - user accounts with bcrypt passwords
 
 ---
 
 ## Step-by-step implementation
 
-### STEP 1 — Git branch
+### STEP 1 - Git branch
 
 ```bash
 git checkout dev
@@ -46,12 +46,12 @@ git push origin feature/prosumer-expansion
 
 ---
 
-### STEP 2 — DB schema migration (ONE change only)
+### STEP 2 - DB schema migration (ONE change only)
 
 Run this against the live DB (use `DATABASE_ADMIN_URL` from `config/.env`):
 
 ```python
-# Run once — idempotent
+# Run once - idempotent
 import os, psycopg2
 from dotenv import load_dotenv
 from pathlib import Path
@@ -88,7 +88,7 @@ And pass `chunk.get("category", "ev_charging")` as the value.
 
 ---
 
-### STEP 3 — Update `pipeline/run_pipeline.py`
+### STEP 3 - Update `pipeline/run_pipeline.py`
 
 **3a. Add prosumer app readers**
 
@@ -109,7 +109,7 @@ To:
 docs.append({
     "source":    "google_play",
     "app_name":  app_dir.name,
-    "category":  category,        # NEW — passed in from main()
+    "category":  category,        # NEW - passed in from main()
     "content":   content,
     "metadata":  {...},
 })
@@ -147,7 +147,7 @@ When reading, look up category: `category = APP_CATEGORIES.get(app_dir.name, "ev
 
 ---
 
-### STEP 4 — Scrape prosumer app data
+### STEP 4 - Scrape prosumer app data
 
 **Find the app store IDs first** (use `infrastructure/scripts/find_app_ids.py` and `find_ios_ids.py`).
 
@@ -170,7 +170,7 @@ Known app IDs (verify before running):
 - `data/raw/text/news/<app_name>/`
 - `data/raw/text/web_pages/<app_name>/`
 
-**Run scrapers** (do NOT re-run existing EV apps — data already in DB):
+**Run scrapers** (do NOT re-run existing EV apps - data already in DB):
 ```bash
 # For each new prosumer app:
 python pipeline/scrapers/google_play.py --app enphase
@@ -189,9 +189,9 @@ python pipeline/run_pipeline.py --source app_store   --app enphase
 
 ---
 
-### STEP 5 — Update `rag/retriever.py`
+### STEP 5 - Update `rag/retriever.py`
 
-**5a. Update SYSTEM_PROMPT** — make it domain-agnostic:
+**5a. Update SYSTEM_PROMPT** - make it domain-agnostic:
 
 ```python
 SYSTEM_PROMPT = """\
@@ -244,12 +244,12 @@ def retrieve(question: str, app_filter=None, top_k=TOP_K,
 
 Add `WHERE category = %s` clause when `category_filter` is set.
 
-Same pattern for `retrieve_per_app()` — accept `app_list` parameter so it can
+Same pattern for `retrieve_per_app()` - accept `app_list` parameter so it can
 operate on just EV apps, just prosumer apps, or all apps.
 
 ---
 
-### STEP 6 — Update `rag/chat_ui/app.py` (UI — Option A)
+### STEP 6 - Update `rag/chat_ui/app.py` (UI - Option A)
 
 **Option A design: Category selector → App selector**
 
@@ -297,16 +297,16 @@ EXAMPLE_QUESTIONS = [
 
 ---
 
-### STEP 7 — Update `rag/chat_ui/pipeline_db.py`
+### STEP 7 - Update `rag/chat_ui/pipeline_db.py`
 
 No change to table schema needed. Just update the `SOURCES` list if needed (it's already correct).
 
-Update `get_chunks_by_app_source()` display — the pivot table will naturally
+Update `get_chunks_by_app_source()` display - the pivot table will naturally
 pick up new app names.
 
 ---
 
-### STEP 8 — Update `rag/chat_ui/pages/1_Admin_Portal.py`
+### STEP 8 - Update `rag/chat_ui/pages/1_Admin_Portal.py`
 
 Update the `APPS` list constant at the top:
 ```python
@@ -326,7 +326,7 @@ grouped options or just a flat list).
 
 ---
 
-### STEP 9 — Update `CLAUDE.md`
+### STEP 9 - Update `CLAUDE.md`
 
 Update:
 - "Target apps" section → add prosumer apps
@@ -335,12 +335,12 @@ Update:
 
 ---
 
-### STEP 10 — Git release flow
+### STEP 10 - Git release flow
 
 ```bash
 # When all changes are done and tested locally:
 git add -A
-git commit -m "feat: Release 2.0 — prosumer app expansion (EV + home energy)"
+git commit -m "feat: Release 2.0 - prosumer app expansion (EV + home energy)"
 
 # Push feature branch
 git push origin feature/prosumer-expansion
@@ -355,8 +355,8 @@ git push origin release/v2.0.0
 
 # Merge to main + tag
 git checkout main
-git merge --no-ff release/v2.0.0 -m "release: v2.0.0 — prosumer expansion"
-git tag -a v2.0.0 -m "Release 2.0 — EV + Prosumer smart energy app research platform"
+git merge --no-ff release/v2.0.0 -m "release: v2.0.0 - prosumer expansion"
+git tag -a v2.0.0 -m "Release 2.0 - EV + Prosumer smart energy app research platform"
 git push origin main --tags
 
 # Sync dev
@@ -384,15 +384,15 @@ ssh -i "C:\Users\Admin\.ssh\ev_research_do" root@168.144.26.72 \
 | DB (one-time) | `ALTER TABLE document_chunks ADD COLUMN category TEXT DEFAULT 'ev_charging'` |
 
 **Files that do NOT need to change:**
-- `rag/chat_ui/pipeline_db.py` — no logic change needed
-- `rag/chat_ui/obs_db.py` — fully domain-agnostic already
-- `rag/chat_ui/pages/2_Observability.py` — fully domain-agnostic already
-- `rag/chat_ui/session_db.py` — no change
-- `rag/api/query.py` — update only if exposing category filter via API
-- All scrapers in `pipeline/scrapers/` — no change, work for any app
-- `.github/workflows/` — no change
-- `config/.env` — no change (same DB, same API keys)
-- `config/users.yaml` — no change
+- `rag/chat_ui/pipeline_db.py` - no logic change needed
+- `rag/chat_ui/obs_db.py` - fully domain-agnostic already
+- `rag/chat_ui/pages/2_Observability.py` - fully domain-agnostic already
+- `rag/chat_ui/session_db.py` - no change
+- `rag/api/query.py` - update only if exposing category filter via API
+- All scrapers in `pipeline/scrapers/` - no change, work for any app
+- `.github/workflows/` - no change
+- `config/.env` - no change (same DB, same API keys)
+- `config/users.yaml` - no change
 
 ---
 
@@ -411,33 +411,33 @@ ssh -i "C:\Users\Admin\.ssh\ev_research_do" root@168.144.26.72 \
 
 ## Key gotchas for the next session
 
-1. **Do NOT re-run scrapers for existing EV apps** — data is already in the DB.
+1. **Do NOT re-run scrapers for existing EV apps** - data is already in the DB.
    Only run scrapers for the 8 new prosumer apps.
 
-2. **Do NOT re-run `setup_db.py` or `update_schema.py`** — they drop/recreate tables.
+2. **Do NOT re-run `setup_db.py` or `update_schema.py`** - they drop/recreate tables.
    Use only the `ALTER TABLE ... ADD COLUMN IF NOT EXISTS` migration in Step 2.
 
-3. **Embedding model stays at BAAI/bge-small-en-v1.5, 384 dims** — changing it would
+3. **Embedding model stays at BAAI/bge-small-en-v1.5, 384 dims** - changing it would
    require re-embedding all 11,322+ existing chunks. Don't touch it.
 
-4. **`load_dotenv` must use `override=True`** — see CLAUDE.md gotcha #1.
+4. **`load_dotenv` must use `override=True`** - see CLAUDE.md gotcha #1.
 
 5. **Clear `__pycache__` on import errors** after editing retriever.py:
    ```
    Remove-Item -Recurse -Force rag\__pycache__, rag\chat_ui\__pycache__
    ```
 
-6. **Model name is `claude-sonnet-4-6`** — not claude-sonnet-4-20250514 (retired).
+6. **Model name is `claude-sonnet-4-6`** - not claude-sonnet-4-20250514 (retired).
 
-7. **Tesla appears in BOTH categories** — `tesla` (EV charging app) and
+7. **Tesla appears in BOTH categories** - `tesla` (EV charging app) and
    `tesla_powerwall` (prosumer/home energy). Use distinct `app_name` values
    so they don't collide in the DB. The Tesla app covers both EV and Powerwall
    but we treat them as separate research subjects.
 
-8. **App Store scraper IDs** — verify the iOS app IDs listed above before running.
+8. **App Store scraper IDs** - verify the iOS app IDs listed above before running.
    Use `infrastructure/scripts/find_ios_ids.py` to look them up if unsure.
 
-9. **Firecrawl credits** — ~450 credits remaining as of v1.0. Each web page
+9. **Firecrawl credits** - ~450 credits remaining as of v1.0. Each web page
    scrape costs ~1-5 credits. Budget accordingly for 8 new apps.
 
 ---

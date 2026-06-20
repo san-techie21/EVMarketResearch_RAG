@@ -57,7 +57,7 @@ The video begins with a review of the **Emporia Vue energy monitor**, a device p
 - Improved insulation and a proper HVAC system would reduce energy consumption by roughly half.
 
 **Graphing Features and Historical Trends**
-- The app graphing screen provides visualization by year, month, week, day, hour, minute, or second — but with aforementioned limitations on selectable historical ranges.
+- The app graphing screen provides visualization by year, month, week, day, hour, minute, or second - but with aforementioned limitations on selectable historical ranges.
 - The reviewer notes the month with about 3,000 kWh usage, expecting a reduction after HVAC improvements.
 - Week-by-week views help analyze specific loads (like water heater) and their energy contribution.
 - The app can approximate dual-pole breakers by doubling one pole’s reading for rough calculation.

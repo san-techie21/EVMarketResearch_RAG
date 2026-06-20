@@ -1,11 +1,11 @@
 """
-ragas_eval.py — Async batch RAGAs evaluator.
+ragas_eval.py - Async batch RAGAs evaluator.
 
 Runs in a background thread, waking every EVAL_INTERVAL_SECS (default: 30 min).
 Each wake: picks up to BATCH_SIZE unevaluated queries, scores them with RAGAs
 using Claude Haiku as the LLM judge, and stores results in ragas_scores.
 
-Metrics evaluated (reference-free — no ground truth needed):
+Metrics evaluated (reference-free - no ground truth needed):
   - faithfulness:       answer grounded in the retrieved context?
   - answer_relevancy:   answer actually addresses the question?
   - context_precision:  retrieved chunks relevant to the question?
@@ -42,7 +42,7 @@ _EVAL_STARTED = False
 _EVAL_LOCK    = threading.Lock()
 
 
-# ── Core evaluation logic ──────────────────────────────────────────────────────
+# -- Core evaluation logic ------------------------------------------------------
 
 def _build_llm():
     """Build a LangChain-wrapped Claude Haiku for use as RAGAs judge."""
@@ -73,7 +73,7 @@ def _build_embeddings():
 def evaluate_one(query_id: int, question: str, answer: str, context_chunks: list) -> dict:
     """
     Run RAGAs on a single query. Returns a dict with metric scores.
-    Raises on failure — caller handles the exception.
+    Raises on failure - caller handles the exception.
     """
     from datasets import Dataset
     from ragas import evaluate
@@ -88,12 +88,12 @@ def evaluate_one(query_id: int, question: str, answer: str, context_chunks: list
         "question":  [question],
         "answer":    [answer],
         "contexts":  [contexts],
-        # context_precision requires ground_truth — we omit it, metric will be skipped
+        # context_precision requires ground_truth - we omit it, metric will be skipped
     })
 
     llm = _build_llm()
 
-    # Build metrics — context_precision needs ground_truth, use without it
+    # Build metrics - context_precision needs ground_truth, use without it
     metrics = [
         faithfulness,
         answer_relevancy,
@@ -186,7 +186,7 @@ def run_eval_batch():
     return evaluated
 
 
-# ── Background scheduler ───────────────────────────────────────────────────────
+# -- Background scheduler -------------------------------------------------------
 
 def _eval_loop():
     """Infinite loop: sleep → evaluate batch → repeat."""

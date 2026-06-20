@@ -85,7 +85,7 @@ App:      enphase
 
 **Wi-Fi Settings and User-Friendly Features**
 - The **Devices menu** also allows users to:
-- Change Wi-Fi settings directly within the app if the network is updated—facilitating easy remote troubleshooting and maintenance without installer support.
+- Change Wi-Fi settings directly within the app if the network is updated-facilitating easy remote troubleshooting and maintenance without installer support.
 
 **Live Vitals Explained and Observations**
 - **Live Vitals** offers a real-time snapshot of system operation, including:

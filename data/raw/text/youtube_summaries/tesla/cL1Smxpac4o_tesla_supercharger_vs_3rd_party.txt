@@ -137,7 +137,7 @@ https://www.youtube.com/watch?v=cL1Smxpac4o
   - Limited number of chargers in key locations.  
   - Frequent non-functional or temporarily unavailable chargers.  
   - App misinformation causing confusion for drivers.  
-  - Physical layout constraints reducing effective charger usability— e.g., two plugs per one parking spot but only one car can charge.  
+  - Physical layout constraints reducing effective charger usability- e.g., two plugs per one parking spot but only one car can charge.  
 - Tesla’s network presence and scale ease range anxiety and promote confidence on long road trips.  
 - Ford’s adaptation of Tesla adapter standards signals movement toward better interoperability, but current third-party infrastructure remains insufficient compared to Tesla’s.  
 

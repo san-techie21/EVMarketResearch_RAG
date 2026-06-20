@@ -1,5 +1,5 @@
 """
-Hybrid retrieval — the v3 retrieval core.
+Hybrid retrieval - the v3 retrieval core.
 
 2026 best practice (verified via current research): two-stage retrieval.
   Stage 1 (recall): run BM25 lexical search AND dense vector search in parallel,
@@ -10,7 +10,7 @@ Hybrid retrieval — the v3 retrieval core.
 Why this replaces the v2 approach: v2 used pure cosine top-K, which drowned out
 minority sources (news/web/youtube), and propped them up with forced
 "guarantee" injectors that had no relevance gate. Hybrid + rerank fixes this
-properly — lexical search catches exact names ("Supercharger", "Powerwall 3",
+properly - lexical search catches exact names ("Supercharger", "Powerwall 3",
 error codes) that embeddings miss, and the reranker lets good minority-source
 chunks rank up on merit, so the injector hacks can be deleted.
 
@@ -54,7 +54,7 @@ _HAS_TSV: Optional[bool] = None
 
 
 # ---------------------------------------------------------------------------
-# Reciprocal Rank Fusion  (pure function — unit-testable without a DB)
+# Reciprocal Rank Fusion  (pure function - unit-testable without a DB)
 # ---------------------------------------------------------------------------
 def reciprocal_rank_fusion(result_lists: list[list[dict]], k: int = 60) -> list[dict]:
     """Fuse multiple ranked lists into one. Each list is ordered best-first.
@@ -197,7 +197,7 @@ def hybrid_retrieve(question: str,
             try:
                 kw_hits = _keyword_search(cur, question, where, where_params, candidates)
             except Exception as exc:
-                # Never let a BM25 hiccup break retrieval — degrade to vector-only.
+                # Never let a BM25 hiccup break retrieval - degrade to vector-only.
                 log.warning("Keyword search failed (%s); vector-only.", exc)
                 conn.rollback()
                 kw_hits = []

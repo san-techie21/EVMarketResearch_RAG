@@ -17,7 +17,7 @@ credentials:
 
 cookie:
   name: ev_research_auth
-  # DEV-ONLY fallback. In production set AUTH_COOKIE_KEY in the environment —
+  # DEV-ONLY fallback. In production set AUTH_COOKIE_KEY in the environment -
   # the app prefers the env var so the real signing key is never committed.
   key: dev-only-change-me-set-AUTH_COOKIE_KEY-in-env
   expiry_days: 30

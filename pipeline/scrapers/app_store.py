@@ -124,7 +124,7 @@ def fetch_reviews(app_id: int) -> list[dict]:
                 "voteCount": e.get("im:voteCount", {}).get("label"),
             })
 
-        log.info("  page %d/%d — %d reviews so far", page, MAX_PAGES, len(all_reviews))
+        log.info("  page %d/%d - %d reviews so far", page, MAX_PAGES, len(all_reviews))
         time.sleep(SLEEP_SECS)
 
     return all_reviews
@@ -142,7 +142,7 @@ def scrape_app(name: str, app_id: int) -> None:
     try:
         info = fetch_app_info(app_id)
         if not info:
-            log.warning("  App id=%d not found on App Store — skipping", app_id)
+            log.warning("  App id=%d not found on App Store - skipping", app_id)
             return
         meta_path = meta_dir / "app_info.json"
         meta_path.write_text(json.dumps(info, indent=2, ensure_ascii=False), encoding="utf-8")

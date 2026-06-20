@@ -1,9 +1,9 @@
 """
-Admin Portal — pipeline monitoring, source management, automation, user management.
+Admin Portal - pipeline monitoring, source management, automation, user management.
 
 Role access:
   superadmin → full access (run pipelines, upload YouTube, manage users, toggle schedules)
-  superuser  → read-only  (view all stats, logs, and user list — no actions)
+  superuser  → read-only  (view all stats, logs, and user list - no actions)
   user       → blocked    (redirected back to chat)
 """
 import sys
@@ -45,9 +45,9 @@ from rag.chat_ui.pipeline_db import (
     SOURCES,
 )
 
-# ── Page config ───────────────────────────────────────────────────────────────
+# -- Page config ---------------------------------------------------------------
 st.set_page_config(
-    page_title="Admin Portal — Home Energy & EV Research",
+    page_title="Admin Portal - Home Energy & EV Research",
     page_icon="⚙️",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -85,7 +85,7 @@ ROLE_COLORS = {
 }
 
 
-# ── Auth guard ────────────────────────────────────────────────────────────────
+# -- Auth guard ----------------------------------------------------------------
 if not st.session_state.get("authentication_status"):
     st.warning("Please log in from the main chat page first.")
     st.page_link("app.py", label="← Go to Login", icon="💬")
@@ -106,11 +106,11 @@ if role == "user":
 
 is_superadmin = (role == "superadmin")
 
-# ── DB setup ──────────────────────────────────────────────────────────────────
+# -- DB setup ------------------------------------------------------------------
 ensure_pipeline_tables()
 
 
-# ── Background pipeline runner ────────────────────────────────────────────────
+# -- Background pipeline runner ------------------------------------------------
 def _run_pipeline_bg(source: str):
     def _execute():
         chunks_before = get_source_chunk_count(source)
@@ -136,7 +136,7 @@ def _run_pipeline_bg(source: str):
     threading.Thread(target=_execute, daemon=True).start()
 
 
-# ── Weekly background scheduler (module-level singleton) ─────────────────────
+# -- Weekly background scheduler (module-level singleton) ---------------------
 _SCHED_STARTED = False
 _SCHED_LOCK    = threading.Lock()
 
@@ -163,7 +163,7 @@ _start_scheduler()
 start_ragas_scheduler()   # RAGAs async quality evaluator
 
 
-# ── User management helpers ───────────────────────────────────────────────────
+# -- User management helpers ---------------------------------------------------
 def _load_cfg() -> dict:
     with open(CONFIG_PATH) as f:
         return yaml.load(f, Loader=SafeLoader)
@@ -196,7 +196,7 @@ def _count_superadmins(cfg: dict) -> int:
     )
 
 
-# ── Global CSS ────────────────────────────────────────────────────────────────
+# -- Global CSS ----------------------------------------------------------------
 st.markdown("""
 <style>
 /* Source / stat cards */
@@ -247,7 +247,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# ── Page header ───────────────────────────────────────────────────────────────
+# -- Page header ---------------------------------------------------------------
 role_class = "role-superadmin" if is_superadmin else "role-superuser"
 role_label = "Superadmin" if is_superadmin else "Superuser · View Only"
 
@@ -276,7 +276,7 @@ if not is_superadmin:
         unsafe_allow_html=True,
     )
 
-# ── Tabs ──────────────────────────────────────────────────────────────────────
+# -- Tabs ----------------------------------------------------------------------
 tab_overview, tab_sources, tab_auto, tab_logs, tab_users = st.tabs([
     "📊  Overview",
     "🗄️  Data Sources",
@@ -286,9 +286,9 @@ tab_overview, tab_sources, tab_auto, tab_logs, tab_users = st.tabs([
 ])
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# TAB 1 — OVERVIEW
-# ══════════════════════════════════════════════════════════════════════════════
+# ==============================================================================
+# TAB 1 - OVERVIEW
+# ==============================================================================
 with tab_overview:
 
     @st.cache_data(ttl=60)
@@ -357,9 +357,9 @@ with tab_overview:
         st.dataframe(df, use_container_width=True)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# TAB 2 — DATA SOURCES
-# ══════════════════════════════════════════════════════════════════════════════
+# ==============================================================================
+# TAB 2 - DATA SOURCES
+# ==============================================================================
 with tab_sources:
 
     counts  = get_source_chunk_counts()
@@ -430,7 +430,7 @@ with tab_sources:
                                             label_visibility="collapsed")
             if uploaded is not None:
                 content = uploaded.read().decode("utf-8")
-                with st.expander(f"📄 Preview — {uploaded.name}", expanded=False):
+                with st.expander(f"📄 Preview - {uploaded.name}", expanded=False):
                     st.text(content[:1500] + ("…" if len(content) > 1500 else ""))
                 if st.button("✅  Save & Ingest", key="yt_upload_btn", type="primary"):
                     dest = YOUTUBE_SUMMARIES_DIR / app_choice
@@ -447,9 +447,9 @@ with tab_sources:
         st.markdown("<div style='margin-bottom:0.3rem'></div>", unsafe_allow_html=True)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# TAB 3 — AUTOMATION
-# ══════════════════════════════════════════════════════════════════════════════
+# ==============================================================================
+# TAB 3 - AUTOMATION
+# ==============================================================================
 with tab_auto:
 
     st.markdown(
@@ -488,7 +488,7 @@ with tab_auto:
                     hrs  = int(diff.total_seconds() // 3600)
                     txt  = f"{hrs}h ago" if hrs < 48 else f"{hrs // 24}d ago"
                 else:
-                    txt = "—"
+                    txt = "-"
                 st.markdown(f"<p style='font-size:0.82rem;color:#64748b;margin:0.55rem 0 0 0;'>"
                             f"Last: {txt}</p>", unsafe_allow_html=True)
             with c_next:
@@ -499,7 +499,7 @@ with tab_auto:
                 elif changes[source]:
                     nxt = "in ~7 days"
                 else:
-                    nxt = "—"
+                    nxt = "-"
                 st.markdown(f"<p style='font-size:0.82rem;color:#64748b;margin:0.55rem 0 0 0;'>"
                             f"Next: {nxt}</p>", unsafe_allow_html=True)
             st.divider()
@@ -530,7 +530,7 @@ with tab_auto:
                 hrs  = int(diff.total_seconds() // 3600)
                 next_txt = f"in {hrs}h" if hrs >= 0 else "Overdue"
             else:
-                next_txt = "—"
+                next_txt = "-"
             rows.append({
                 "Source":   f"{meta['icon']} {meta['label']}",
                 "Schedule": "Every 7 days",
@@ -541,9 +541,9 @@ with tab_auto:
         st.dataframe(pd.DataFrame(rows).set_index("Source"), use_container_width=True)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# TAB 4 — RUN LOGS
-# ══════════════════════════════════════════════════════════════════════════════
+# ==============================================================================
+# TAB 4 - RUN LOGS
+# ==============================================================================
 with tab_logs:
 
     lf_col, ref_col = st.columns([5, 1])
@@ -571,7 +571,7 @@ with tab_logs:
             hrs    = int(diff.total_seconds() // 3600)
             ago    = f"{hrs}h ago" if hrs < 48 else f"{hrs // 24}d ago"
             dur_s  = run.get("duration_secs") or 0
-            dur    = f"{dur_s // 60}m {dur_s % 60}s" if dur_s else "—"
+            dur    = f"{dur_s // 60}m {dur_s % 60}s" if dur_s else "-"
 
             if status == "running":
                 status_html = "<span class='pill pill-running'>⏳ Running</span>"
@@ -604,12 +604,12 @@ with tab_logs:
             st.divider()
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# TAB 5 — USERS
-# ══════════════════════════════════════════════════════════════════════════════
+# ==============================================================================
+# TAB 5 - USERS
+# ==============================================================================
 with tab_users:
 
-    # ── Description + Add button ──────────────────────────────────────────
+    # -- Description + Add button ------------------------------------------
     desc_col, add_col = st.columns([5, 1])
     cfg        = _load_cfg()
     users_dict = cfg["credentials"]["usernames"]
@@ -635,7 +635,7 @@ with tab_users:
                 )
                 st.session_state.pop("nu_pw", None)
 
-    # ── Add New User panel ─────────────────────────────────────────────────
+    # -- Add New User panel -------------------------------------------------
     if is_superadmin and st.session_state.get("show_add_user"):
         st.markdown("<div class='action-panel'>", unsafe_allow_html=True)
         st.markdown(
@@ -660,7 +660,7 @@ with tab_users:
         if nu_pw:
             st.markdown(
                 "<p style='font-size:0.8rem;color:#64748b;margin:0.4rem 0 0.15rem 0;'>"
-                "🔑 Generated password — copy before saving:</p>",
+                "🔑 Generated password - copy before saving:</p>",
                 unsafe_allow_html=True,
             )
             st.code(nu_pw, language=None)
@@ -668,13 +668,13 @@ with tab_users:
             # Shareable credentials block
             with st.expander("📋 Copy shareable credentials", expanded=False):
                 share_text = (
-                    f"Home Energy & EV App Research — Login Credentials\n"
-                    f"{'─'*45}\n"
+                    f"Home Energy & EV App Research - Login Credentials\n"
+                    f"{'-'*45}\n"
                     f"URL:      https://168.144.26.72\n"
                     f"Username: {st.session_state.get('nu_uname', '').strip() or '<email>'}\n"
                     f"Password: {nu_pw}\n"
                     f"Role:     {ROLE_LABELS.get(st.session_state.get('nu_role', 'user'), 'User')}\n"
-                    f"{'─'*45}\n"
+                    f"{'-'*45}\n"
                     f"Please log in and confirm access."
                 )
                 st.code(share_text, language=None)
@@ -713,7 +713,7 @@ with tab_users:
 
         st.markdown("</div>", unsafe_allow_html=True)
 
-    # ── Column headers ─────────────────────────────────────────────────────
+    # -- Column headers -----------------------------------------------------
     h_av, h_nm, h_em, h_rl, h_ac = st.columns([0.4, 2.2, 3.2, 2, 1.8])
     for col, lbl in zip(
         [h_av, h_nm, h_em, h_rl, h_ac],
@@ -729,7 +729,7 @@ with tab_users:
         unsafe_allow_html=True,
     )
 
-    # ── User rows ──────────────────────────────────────────────────────────
+    # -- User rows ----------------------------------------------------------
     for uname, udata in list(users_dict.items()):
         uname_display = udata.get("name", uname)
         u_role        = udata.get("role", "user")
@@ -810,7 +810,7 @@ with tab_users:
                         k = f"confirm_del_{uname}"
                         st.session_state[k] = not st.session_state.get(k, False)
 
-        # ── Reset password panel ───────────────────────────────────────────
+        # -- Reset password panel -------------------------------------------
         if is_superadmin and st.session_state.get(f"show_reset_{uname}"):
             st.markdown("<div class='action-panel'>", unsafe_allow_html=True)
             st.markdown(
@@ -828,18 +828,18 @@ with tab_users:
             if reset_pw:
                 st.markdown(
                     "<p style='font-size:0.8rem;color:#64748b;margin:0.2rem 0 0.1rem 0;'>"
-                    "New password — copy before saving:</p>",
+                    "New password - copy before saving:</p>",
                     unsafe_allow_html=True,
                 )
                 st.code(reset_pw, language=None)
                 with st.expander("📋 Copy shareable credentials", expanded=False):
                     share_text = (
-                        f"Home Energy & EV App Research — Updated Credentials\n"
-                        f"{'─'*45}\n"
+                        f"Home Energy & EV App Research - Updated Credentials\n"
+                        f"{'-'*45}\n"
                         f"URL:      https://168.144.26.72\n"
                         f"Username: {uname}\n"
                         f"Password: {reset_pw}\n"
-                        f"{'─'*45}"
+                        f"{'-'*45}"
                     )
                     st.code(share_text, language=None)
                 rs1, rs2 = st.columns(2)
@@ -866,7 +866,7 @@ with tab_users:
                     st.rerun()
             st.markdown("</div>", unsafe_allow_html=True)
 
-        # ── Delete confirmation panel ──────────────────────────────────────
+        # -- Delete confirmation panel --------------------------------------
         if is_superadmin and st.session_state.get(f"confirm_del_{uname}"):
             is_last_sa = (u_role == "superadmin" and _count_superadmins(cfg) <= 1)
             if is_last_sa:

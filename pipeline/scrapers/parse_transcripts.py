@@ -62,7 +62,7 @@ def classify_title(title: str) -> str | None:
         return "evcs"
     if "blink" in t:
         return "blink"
-    # Prosumer — check before generic "tesla" to avoid mis-routing
+    # Prosumer - check before generic "tesla" to avoid mis-routing
     if "powerwall" in t:
         return "tesla_powerwall"
     if "tesla" in t:
@@ -110,7 +110,7 @@ def clean_transcript(text: str) -> str:
 
         # Skip lines that are just numbered playlist items like "01." / "32."
         if re.match(r'^\d{1,2}\.\s', s) and len(s) < 80:
-            # Could be a real sentence — only skip if it looks like a playlist item title
+            # Could be a real sentence - only skip if it looks like a playlist item title
             if re.match(r'^\d{1,2}\.\s+\w[\w\s\-:]+$', s) and len(s) < 60:
                 continue
 
@@ -222,7 +222,7 @@ def parse_section(section: str) -> tuple[str, str, str]:
     - URL line: matches YouTube URL regex
     - Title line: a non-empty, non-URL, non-timestamp line that appears BEFORE
       the first timestamp line in the section.
-    Once we've seen a timestamp line, we're in transcript content — stop header
+    Once we've seen a timestamp line, we're in transcript content - stop header
     detection.
     """
     lines = section.splitlines()
@@ -256,7 +256,7 @@ def parse_section(section: str) -> tuple[str, str, str]:
             title = s
             content_start = idx + 1
     else:
-        # No timestamp found — all content is header or empty
+        # No timestamp found - all content is header or empty
         pass
 
     # Collect the transcript (everything from content_start onward)
@@ -267,7 +267,7 @@ def parse_section(section: str) -> tuple[str, str, str]:
 
 
 # ---------------------------------------------------------------------------
-# Save helpers  — writes one .txt per video to youtube_summaries/<app>/
+# Save helpers  - writes one .txt per video to youtube_summaries/<app>/
 # ---------------------------------------------------------------------------
 def existing_video_ids(app_name: str) -> set[str]:
     """Return video_ids already saved as .txt files for this app."""
@@ -400,7 +400,7 @@ def main():
         print(f"  SKIP: {s}")
 
     if saved:
-        print("\nNext step — ingest into DB:")
+        print("\nNext step - ingest into DB:")
         for app_name in sorted(saved.keys()):
             print(f"  python pipeline/run_pipeline.py --source youtube --app {app_name}")
 

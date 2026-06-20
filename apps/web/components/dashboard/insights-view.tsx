@@ -82,7 +82,7 @@ export function InsightsView() {
                   <div className="mb-1 flex justify-between text-[12px]">
                     <span className="text-[var(--text-2)]">{t.label}</span>
                     <span className={t.tone === "neg" ? "text-rose-400" : "text-emerald-400"}>
-                      {t.tone === "neg" ? "−" : "+"}{t.value}
+                      {t.tone === "neg" ? "-" : "+"}{t.value}
                     </span>
                   </div>
                   <div className="h-2 overflow-hidden rounded-full bg-white/5">
@@ -104,7 +104,7 @@ export function InsightsView() {
             <CardHead icon={Swords} title="Auto-battlecard" sub="one-click competitive brief" />
             <p className="mt-3 text-[13px] leading-relaxed text-[var(--text-2)]">
               Generate a board-ready brief comparing any two apps across reliability,
-              pricing, UX and momentum — synthesised from every source, with citations.
+              pricing, UX and momentum - synthesised from every source, with citations.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               {["ChargePoint vs EVgo", "Enphase vs SolarEdge", "Tesla vs Electrify America"].map((b) => (
@@ -115,7 +115,7 @@ export function InsightsView() {
             </div>
             <div className="mt-4 flex items-center gap-2 text-[12px] text-[var(--text-3)]">
               <MapPin className="h-3.5 w-3.5 text-[var(--accent-emerald)]" />
-              Live station data via OpenChargeMap &amp; NREL — free, no key needed.
+              Live station data via OpenChargeMap &amp; NREL - free, no key needed.
             </div>
           </motion.div>
         </div>

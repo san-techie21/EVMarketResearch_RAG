@@ -150,7 +150,7 @@ export function ChatView() {
             </button>
           </form>
           <p className="mt-2 text-center text-[11px] text-[var(--text-3)]">
-            Voltaic searches reviews, news, video &amp; web — answers are cited. Demo data.
+            Voltaic searches reviews, news, video &amp; web - answers are cited. Demo data.
           </p>
         </div>
       </div>
@@ -176,7 +176,7 @@ function EmptyState({ onPick }: { onPick: (q: string) => void }) {
         Ask anything about the <span className="text-gradient">EV &amp; energy</span> market
       </h2>
       <p className="mt-2 max-w-md text-sm text-[var(--text-2)]">
-        Reviews, news, videos and websites across 12 apps — distilled into cited answers.
+        Reviews, news, videos and websites across 12 apps - distilled into cited answers.
       </p>
 
       <div className="mt-8 grid w-full gap-3 sm:grid-cols-2">

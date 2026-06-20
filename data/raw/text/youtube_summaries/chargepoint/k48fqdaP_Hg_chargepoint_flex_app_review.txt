@@ -45,7 +45,7 @@ https://www.youtube.com/watch?v=k48fqdaP_Hg
 **Practical Advice: Constant Vigilance Required**  
 - Users need to be vigilant: open the ChargePoint app **each time the car is plugged in** to ensure charging does not start outside the scheduled window.  
 - If charging starts unexpectedly, users must manually stop it via the app to avoid peak hour charging costs.  
-- It is rare—*not confirmed by the creator*—that charging would randomly start hours after plugging in rather than immediately.  
+- It is rare-*not confirmed by the creator*-that charging would randomly start hours after plugging in rather than immediately.  
 - This approach turns scheduled charging into a **manual monitoring task rather than a hands-off automated process**.
 
 [00:06:26]  

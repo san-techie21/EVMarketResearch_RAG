@@ -59,7 +59,7 @@ https://www.youtube.com/watch?v=O2ln6MxQ7jI
 - New EVgo stations are increasing in urban Southern California (Seal Beach, Long Beach), indicating possible investment/expansion efforts.  
 - EVgo stations typically:  
   - Are located more “in town” or away from freeway corridors.  
-  - Have fewer chargers per station (typically 2–4), unlike Electrify America which tends to have larger, freeway-adjacent stations.
+  - Have fewer chargers per station (typically 2-4), unlike Electrify America which tends to have larger, freeway-adjacent stations.
 
 [00:08:20]  
 **Live Charging Status and Technical Confirmation**  
@@ -90,7 +90,7 @@ https://www.youtube.com/watch?v=O2ln6MxQ7jI
 **EVgo App Interface during Charging**  
 - EVgo app provides comprehensive, **real-time charging progress view:**  
   - Elapsed time  
-  - Session time limit (60 minutes maximum) – a constraint notable for slower-charging vehicles (like Chevy Bolt and Kia EV line).  
+  - Session time limit (60 minutes maximum) - a constraint notable for slower-charging vehicles (like Chevy Bolt and Kia EV line).  
   - Current state of charge (SOC) as a percentage  
   - Estimated session cost displayed dynamically ($8.75 at ~65% SOC)  
   - Visual charging curve showing charge rate decrease over time, reflective of typical battery management protocols to optimize longevity.
@@ -101,7 +101,7 @@ https://www.youtube.com/watch?v=O2ln6MxQ7jI
 - The adaptive charge rate drop over time is described as **normal behavior** to protect battery health.
 
 [00:13:22]  
-**Stopping the Charging Session – Methods**  
+**Stopping the Charging Session - Methods**  
 - Terminating the charging session can be done via:  
   - Inside the Volkswagen ID.4 infotainment menu (“stop charging” option).  
   - On the EVgo dispenser touch menu (“stop charge” button).  
@@ -146,7 +146,7 @@ https://www.youtube.com/watch?v=O2ln6MxQ7jI
 - **EVgo’s AutoCharge program** streamlines charging for compatible vehicles but is currently unavailable for Volkswagen ID.4.  
 - New EVgo stations are emerging in urban Southern California but suffer early-stage operational and maintenance issues (offline chargers, cable reach problems).  
 - EVgo stations are located more in urban in-fill locations rather than along freeways, offering different use case advantages compared to Electrify America.  
-- Charging session performance can vary, but recent sessions show efficient power delivery at about 100–120 kW for the ID.4.  
+- Charging session performance can vary, but recent sessions show efficient power delivery at about 100-120 kW for the ID.4.  
 - EVgo's app provides extensive real-time charging data preferred by some users over Electrify America’s app, though post-session summaries are limited.  
 - Parking layout, especially regarding handicap spots, can pose conflicts for EV users and disabled drivers, underscoring the need for considerate station design.  
 - Charging session limits (60 minutes max) may impact slower-charging vehicles.

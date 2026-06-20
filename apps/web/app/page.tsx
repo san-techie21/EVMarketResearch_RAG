@@ -17,7 +17,7 @@ const item = {
 
 const FEATURES = [
   { icon: BarChart3, text: "24,863 chunks across 12 EV & energy apps" },
-  { icon: Newspaper, text: "Live news, reviews, video & web — one brain" },
+  { icon: Newspaper, text: "Live news, reviews, video & web - one brain" },
   { icon: ShieldCheck, text: "Every answer cited back to its source" },
 ];
 
@@ -39,7 +39,7 @@ export default function LoginPage() {
   return (
     <main className="min-h-screen w-full px-5 py-10 lg:px-10">
       <div className="mx-auto grid min-h-[calc(100vh-5rem)] max-w-6xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-        {/* ── Hero side ─────────────────────────────────────────────── */}
+        {/* -- Hero side ----------------------------------------------- */}
         <motion.section
           variants={container}
           initial="hidden"
@@ -65,7 +65,7 @@ export default function LoginPage() {
 
           <motion.p variants={item} className="mt-5 max-w-md text-[15px] leading-relaxed text-[var(--text-2)]">
             Ask anything about the market. Voltaic reads every review, news article,
-            video and website across the top apps and answers in seconds — with
+            video and website across the top apps and answers in seconds - with
             receipts.
           </motion.p>
 
@@ -81,7 +81,7 @@ export default function LoginPage() {
           </motion.ul>
         </motion.section>
 
-        {/* ── Login card ────────────────────────────────────────────── */}
+        {/* -- Login card ---------------------------------------------- */}
         <motion.section
           initial={{ opacity: 0, y: 24, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -138,7 +138,7 @@ export default function LoginPage() {
 
           <div className="mt-5 flex items-center gap-2 rounded-xl glass px-3 py-2.5 text-xs text-[var(--text-2)]">
             <Sparkles className="h-3.5 w-3.5 text-[var(--accent-violet)]" />
-            Demo mode — credentials are prefilled. Just hit <b className="text-[var(--text)]">Enter workspace</b>.
+            Demo mode - credentials are prefilled. Just hit <b className="text-[var(--text)]">Enter workspace</b>.
           </div>
         </motion.section>
       </div>

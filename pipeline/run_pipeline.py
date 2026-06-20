@@ -123,14 +123,14 @@ def read_youtube(app_filter: str | None = None) -> list[dict]:
         Title:    <video title>
         Video ID: <youtube video id>
         URL:      https://www.youtube.com/watch?v=...
-        App:      <app_name>   (optional — folder name is used as app_name)
+        App:      <app_name>   (optional - folder name is used as app_name)
 
         <full summary / transcript body>
     """
     docs = []
     base = DATA_DIR / "raw" / "text" / "youtube_summaries"
     if not base.exists():
-        log.warning("youtube_summaries/ directory not found — nothing to ingest")
+        log.warning("youtube_summaries/ directory not found - nothing to ingest")
         return docs
 
     for app_dir in sorted(base.iterdir()):
@@ -185,7 +185,7 @@ def read_news(app_filter: str | None = None) -> list[dict]:
     docs = []
     base = DATA_DIR / "raw" / "text" / "news"
     if not base.exists():
-        log.warning("News data directory not found — run news_feeds.py first")
+        log.warning("News data directory not found - run news_feeds.py first")
         return docs
     for app_dir in sorted(base.iterdir()):
         if app_filter and app_dir.name != app_filter:
@@ -230,7 +230,7 @@ def read_web_pages(app_filter: str | None = None) -> list[dict]:
     docs = []
     base = DATA_DIR / "raw" / "text" / "web_pages"
     if not base.exists():
-        log.warning("Web pages data directory not found — run the web pages scraper first")
+        log.warning("Web pages data directory not found - run the web pages scraper first")
         return docs
     for app_dir in sorted(base.iterdir()):
         if app_filter and app_dir.name != app_filter:
@@ -319,7 +319,7 @@ def process_docs(docs: list[dict]) -> None:
 
         inserted = upsert_chunks(batch)
         total_inserted += inserted
-        log.info("  Batch %d/%d — upserted %d chunks (total: %d)",
+        log.info("  Batch %d/%d - upserted %d chunks (total: %d)",
                  i // EMBED_BATCH + 1,
                  -(-len(all_chunks) // EMBED_BATCH),
                  inserted,

@@ -57,7 +57,7 @@ export const EXAMPLE_QUESTIONS = [
 export const RECENT_CHATS = [
   { id: "1", title: "ChargePoint vs EVgo reliability", when: "2m ago" },
   { id: "2", title: "Enphase battery management UX", when: "1h ago" },
-  { id: "3", title: "NACS rollout — who's fastest?", when: "Yesterday" },
+  { id: "3", title: "NACS rollout - who's fastest?", when: "Yesterday" },
   { id: "4", title: "Top complaints across EV apps", when: "Yesterday" },
 ];
 
@@ -80,21 +80,21 @@ Stations frequently appear active on the map but are **out of service or ICE'd**
 ### 3. Payment & receipts
 Sporadic double-charges and missing receipts, though sentiment here has **improved ~12%** since the latest app update per recent reviews.
 
-> **Net:** reliability perception is dragged down by the gap between *in-app availability* and *real-world uptime* — the highest-leverage fix area.`;
+> **Net:** reliability perception is dragged down by the gap between *in-app availability* and *real-world uptime* - the highest-leverage fix area.`;
 
 export const DEMO_SOURCES: Source[] = [
   { app: "chargepoint", source: "google_play", score: 0.912, snippet: "App keeps failing to start a session and the map shows stations that are clearly offline when I arrive..." },
-  { app: "chargepoint", source: "app_store", score: 0.884, snippet: "Reliability has been hit or miss — half the chargers it shows as available are broken or ICE'd." },
+  { app: "chargepoint", source: "app_store", score: 0.884, snippet: "Reliability has been hit or miss - half the chargers it shows as available are broken or ICE'd." },
   { app: "chargepoint", source: "news", score: 0.831, snippet: "ChargePoint rolled out a reliability initiative aimed at closing the gap between reported and actual uptime..." },
   { app: "chargepoint", source: "web_pages", score: 0.802, snippet: "ChargePoint's driver app provides real-time station availability and remote session start across the network." },
 ];
 
-// ── Question-aware demo answer engine ──────────────────────────────────────
+// -- Question-aware demo answer engine --------------------------------------
 // The live backend answers from the real knowledge base. In demo mode we route
 // the question to the most relevant canned answer, and decline gracefully when
 // it's outside coverage (e.g. rideshare) instead of answering something else.
 
-const EVGO_EA_ANSWER = `**EVgo vs Electrify America — pricing transparency** (from 8,473 Google Play + 6,572 App Store reviews and recent news):
+const EVGO_EA_ANSWER = `**EVgo vs Electrify America - pricing transparency** (from 8,473 Google Play + 6,572 App Store reviews and recent news):
 
 ### Plan clarity
 **Electrify America** is praised for flat per-kWh Pass+ pricing, but reviewers are confused where billing switches to **per-minute** depending on the state.
@@ -103,16 +103,16 @@ const EVGO_EA_ANSWER = `**EVgo vs Electrify America — pricing transparency** (
 Reviewers find EVgo's tiered/membership pricing **harder to predict**, with recurring complaints about **idle fees** and peak-time surprises.
 
 ### Net
-On transparency, **Electrify America edges ahead** on published per-kWh rates, while **EVgo scores better on reliability** in recent reviews — a price-clarity vs uptime trade-off.`;
+On transparency, **Electrify America edges ahead** on published per-kWh rates, while **EVgo scores better on reliability** in recent reviews - a price-clarity vs uptime trade-off.`;
 
 const EVGO_EA_SOURCES: Source[] = [
-  { app: "evgo", source: "google_play", score: 0.892, snippet: "Pricing is confusing — membership vs pay-as-you-go plus idle fees make the final cost hard to predict." },
+  { app: "evgo", source: "google_play", score: 0.892, snippet: "Pricing is confusing - membership vs pay-as-you-go plus idle fees make the final cost hard to predict." },
   { app: "electrify_america", source: "app_store", score: 0.864, snippet: "Pass+ flat per-kWh is clear, but per-minute billing in a few states throws people off." },
   { app: "evgo", source: "news", score: 0.811, snippet: "EVgo revised its pricing tiers; analysts note clearer per-kWh rates across more markets." },
   { app: "electrify_america", source: "web_pages", score: 0.793, snippet: "Electrify America publishes per-kWh and Pass+ membership pricing on its site." },
 ];
 
-const PROSUMER_ANSWER = `**Best solar + battery monitoring UX** (prosumer apps — from reviews and video walkthroughs):
+const PROSUMER_ANSWER = `**Best solar + battery monitoring UX** (prosumer apps - from reviews and video walkthroughs):
 
 ### Enphase Enlighten
 Consistently top-rated for a clean, **real-time per-panel** view; reviewers love the microinverter-level granularity.
@@ -139,10 +139,10 @@ const NACS_ANSWER = `**Latest on NACS adoption** (from recent news and announcem
 - Reviewers flag early **adapter reliability** hiccups, but Supercharger access for non-Tesla EVs is improving fast.
 
 ### Net
-The market is consolidating around NACS faster than expected — the open question is **station-side rollout pace**, not automaker commitment.`;
+The market is consolidating around NACS faster than expected - the open question is **station-side rollout pace**, not automaker commitment.`;
 
 const NACS_SOURCES: Source[] = [
-  { app: "tesla", source: "news", score: 0.881, snippet: "Automakers adopt the Tesla NACS connector; native ports and adapters rolling out across 2025–26 models." },
+  { app: "tesla", source: "news", score: 0.881, snippet: "Automakers adopt the Tesla NACS connector; native ports and adapters rolling out across 2025-26 models." },
   { app: "electrify_america", source: "news", score: 0.833, snippet: "Electrify America adding NACS connectors across its DC fast-charging network." },
   { app: "chargepoint", source: "news", score: 0.781, snippet: "ChargePoint to ship NACS-equipped hardware as the connector standard consolidates." },
 ];
@@ -154,7 +154,7 @@ function genericApp(name: string, question: string): string {
 
 Across reviews, news and official sources, the strongest signals cluster around **reliability**, **app experience**, and **pricing**, with sentiment trending up in recent weeks.
 
-> **Demo answer.** The live backend returns a full, cited synthesis from the real 24,863-chunk knowledge base — this preview shows the experience and citations.`;
+> **Demo answer.** The live backend returns a full, cited synthesis from the real 24,863-chunk knowledge base - this preview shows the experience and citations.`;
 }
 
 function outOfScope(question: string): string {
@@ -162,7 +162,7 @@ function outOfScope(question: string): string {
 
 I focus on **EV charging and home-energy apps**, so I don't have data on *"${clip(question)}"*.
 
-Try asking about **ChargePoint, EVgo, Electrify America, Tesla, Enphase, SolarEdge, Sense or Span** — for example:
+Try asking about **ChargePoint, EVgo, Electrify America, Tesla, Enphase, SolarEdge, Sense or Span** - for example:
 
 - What are the most common complaints about ChargePoint?
 - How does EVgo compare to Electrify America on pricing?
@@ -206,7 +206,7 @@ export function answerFor(question: string): { answer: string; sources: Source[]
   return { answer: outOfScope(question), sources: [] };
 }
 
-// Sentiment-over-time (innovative feature preview) — % positive by week.
+// Sentiment-over-time (innovative feature preview) - % positive by week.
 export const SENTIMENT_SERIES = [
   { week: "W1", chargepoint: 58, evgo: 62, electrify_america: 55 },
   { week: "W2", chargepoint: 55, evgo: 64, electrify_america: 57 },

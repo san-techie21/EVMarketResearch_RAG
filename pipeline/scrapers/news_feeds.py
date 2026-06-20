@@ -1,24 +1,24 @@
 """
-News ingestion v3 — free, full-text, multi-source, relevance-matched.
+News ingestion v3 - free, full-text, multi-source, relevance-matched.
 
 Why this exists
 ---------------
 The original `news_rss.py` pulled Google News *search* RSS. Google News `<link>`s
 are encoded redirect URLs (`news.google.com/rss/articles/CBMi...`), so
-`trafilatura.fetch_url(link)` hits a redirect/consent page and returns nothing —
+`trafilatura.fetch_url(link)` hits a redirect/consent page and returns nothing -
 which is why most stored "news" chunks were headline-only. (Verified empirically.)
 
 This scraper instead pulls **publisher-direct RSS feeds** whose `<link>`s are real
 article URLs, so full-body extraction actually works. Every feed below was
 validated end-to-end (reachable, parsed, fresh, body-extractable) before being
-included — see the project's feed-test harness.
+included - see the project's feed-test harness.
 
 Sources (all free, no paid API key)
-  1. Publisher RSS feeds — full text via `content:encoded` when present, else
+  1. Publisher RSS feeds - full text via `content:encoded` when present, else
      fetched from the real article URL with trafilatura (browser-UA requests
      fallback for publishers that block bot fetches, e.g. InsideEVs).
-  2. GDELT 2.0 DOC API — keyless, broad coverage; best-effort (rate-limited).
-  3. Google News RSS — OPTIONAL supplement (--google-news); links are encoded so
+  2. GDELT 2.0 DOC API - keyless, broad coverage; best-effort (rate-limited).
+  3. Google News RSS - OPTIONAL supplement (--google-news); links are encoded so
      bodies are summary-only unless a decoder succeeds.
 
 Each article is keyword-matched to one or more target apps, tagged with category,
@@ -61,7 +61,7 @@ log = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
 # Validated publisher feeds  (name, url, category_hint)
-#   category_hint ∈ {"ev", "energy", "mixed"} — only used to disambiguate the
+#   category_hint ∈ {"ev", "energy", "mixed"} - only used to disambiguate the
 #   _general bucket; app keyword matches always take precedence.
 # ---------------------------------------------------------------------------
 PUBLISHER_FEEDS: list[tuple[str, str, str]] = [
@@ -203,7 +203,7 @@ def parse_published(entry) -> tuple[str, str | None]:
 
 
 # ---------------------------------------------------------------------------
-# Body extraction — 3-tier with graceful fallback
+# Body extraction - 3-tier with graceful fallback
 # ---------------------------------------------------------------------------
 def _extract_from_html(downloaded: str) -> str:
     if not downloaded:
@@ -279,7 +279,7 @@ def entry_body(entry, fetch_body: bool) -> tuple[str, str, str]:
 # Relevance matching
 #
 # Word-boundary regex (not naive substring) so brand names don't match generic
-# industry terms — e.g. "chargepoint" must NOT match the generic plural
+# industry terms - e.g. "chargepoint" must NOT match the generic plural
 # "chargepoints" (as in "Char.gy delivers 1000 new chargepoints"). Verified
 # against a real false positive during end-to-end testing.
 # ---------------------------------------------------------------------------
@@ -532,7 +532,7 @@ def main() -> None:
     parser.add_argument("--app", nargs="+", choices=list(APP_ALIASES.keys()),
                         help="Only collect articles matching these apps (default: all + general)")
     parser.add_argument("--no-body", action="store_true",
-                        help="Skip full-body fetch (use feed text only — fast)")
+                        help="Skip full-body fetch (use feed text only - fast)")
     parser.add_argument("--gdelt", action="store_true",
                         help="Also query the GDELT API (keyless, best-effort)")
     parser.add_argument("--max-per-feed", type=int, default=60,
@@ -541,7 +541,7 @@ def main() -> None:
 
     fetch_body = not args.no_body
     if fetch_body and not _HAVE_TRAFILATURA:
-        log.warning("trafilatura not installed — falling back to feed text only. "
+        log.warning("trafilatura not installed - falling back to feed text only. "
                     "Install with: pip install trafilatura")
         fetch_body = False
 

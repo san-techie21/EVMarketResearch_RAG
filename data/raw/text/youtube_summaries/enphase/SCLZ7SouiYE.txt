@@ -34,7 +34,7 @@ App:      enphase
 - **Home electricity consumption (orange)** fluctuating throughout the day.
 - **Grid import/export (grey)** indicating when electricity is drawn from or sent to the grid.
 
-- This visualization clearly shows typical daily patterns — solar power exported during sunlight hours, with electricity imported at night or when generation is insufficient.
+- This visualization clearly shows typical daily patterns - solar power exported during sunlight hours, with electricity imported at night or when generation is insufficient.
 
 **Panel-level Monitoring with Enphase Microinverters**
 - Switching to the **"Array" tab** reveals the granular benefit of **Enphase microinverters**:

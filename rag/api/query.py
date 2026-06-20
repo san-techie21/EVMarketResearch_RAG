@@ -1,5 +1,5 @@
 """
-RAG query API — FastAPI endpoint for the EV charging knowledge base.
+RAG query API - FastAPI endpoint for the EV charging knowledge base.
 
 Run with:
     uvicorn rag.api.query:app --reload --port 8000

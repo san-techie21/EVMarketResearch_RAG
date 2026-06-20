@@ -276,7 +276,7 @@ Performance on Charger Raider:
 - **Hardwired installations are safest**; cheap plug-in outlets can cause fires if not carefully selected and installed.  
 - The **Tesla Universal Wall Connector is unique** for its integrated multi-connector adapter, easing charging for households with multiple EV types.
 - The industry standard for fast home charging is now **48-50 amps**, with 80 amp units being niche and expensive.
-- **Beware of cheap, uncertified chargers** on open marketplaces—prioritize safety certifications and proven brands.
+- **Beware of cheap, uncertified chargers** on open marketplaces-prioritize safety certifications and proven brands.
 
 ---
 

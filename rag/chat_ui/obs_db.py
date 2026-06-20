@@ -1,5 +1,5 @@
 """
-obs_db.py — Query observability: logging every RAG inference call and
+obs_db.py - Query observability: logging every RAG inference call and
 providing aggregated stats for the Observability dashboard.
 
 Table: query_logs
@@ -18,7 +18,7 @@ def _get_conn():
     return psycopg2.connect(os.environ["DATABASE_URL"])
 
 
-# ── Schema ─────────────────────────────────────────────────────────────────────
+# -- Schema ---------------------------------------------------------------------
 
 def ensure_obs_tables():
     """Create query_logs and ragas_scores tables idempotently."""
@@ -80,7 +80,7 @@ def ensure_obs_tables():
         conn.close()
 
 
-# ── Write ──────────────────────────────────────────────────────────────────────
+# -- Write ----------------------------------------------------------------------
 
 def log_query(
     username: str,
@@ -101,7 +101,7 @@ def log_query(
     context_chunks=None,   # list of dicts: {source, app_name, content, score}
 ) -> int | None:
     """Insert one row into query_logs. Returns the new id, or None on error.
-    Errors are swallowed — never break UX."""
+    Errors are swallowed - never break UX."""
     import json
     try:
         conn = _get_conn()
@@ -135,7 +135,7 @@ def log_query(
         return None   # never let observability logging crash the app
 
 
-# ── Read — aggregated stats ────────────────────────────────────────────────────
+# -- Read - aggregated stats ----------------------------------------------------
 
 def get_kpi_stats() -> dict:
     """Return summary KPIs: today/7d/total counts, latency, errors, tokens."""
@@ -303,7 +303,7 @@ def get_recent_errors(limit: int = 20) -> list[dict]:
         conn.close()
 
 
-# ── RAGAs helpers ──────────────────────────────────────────────────────────────
+# -- RAGAs helpers --------------------------------------------------------------
 
 def get_unevaluated_queries(limit: int = 20) -> list[dict]:
     """Return queries that have answer+context stored but no RAGAs score yet."""

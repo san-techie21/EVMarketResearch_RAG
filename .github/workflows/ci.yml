@@ -28,7 +28,7 @@ jobs:
           # Install only lightweight deps needed for import checks
           pip install streamlit pyyaml python-dotenv bcrypt psycopg2-binary
 
-      - name: Flake8 — syntax errors and undefined names
+      - name: Flake8 - syntax errors and undefined names
         run: |
           # Stop build on syntax errors (E9), undefined names (F821),
           # undefined local (F823). Ignore line-length (E501) and style.

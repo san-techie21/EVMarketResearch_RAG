@@ -1,9 +1,9 @@
 """
-pipeline_db.py — DB helpers for pipeline run tracking and schedule management.
+pipeline_db.py - DB helpers for pipeline run tracking and schedule management.
 
 Tables created on first use:
-  pipeline_runs      — log of every pipeline execution
-  pipeline_schedules — per-source schedule config (weekly by default)
+  pipeline_runs      - log of every pipeline execution
+  pipeline_schedules - per-source schedule config (weekly by default)
 """
 import os
 from datetime import datetime, timedelta, timezone
@@ -22,7 +22,7 @@ def _get_conn():
     return psycopg2.connect(os.environ["DATABASE_URL"])
 
 
-# ── Schema setup ─────────────────────────────────────────────────────────────
+# -- Schema setup -------------------------------------------------------------
 
 def ensure_pipeline_tables():
     """Create pipeline tracking tables + seed schedule rows. Idempotent."""
@@ -66,7 +66,7 @@ def ensure_pipeline_tables():
         conn.close()
 
 
-# ── Chunk counts ─────────────────────────────────────────────────────────────
+# -- Chunk counts -------------------------------------------------------------
 
 def get_source_chunk_counts() -> dict[str, int]:
     """Return {source: count} for all sources."""
@@ -118,7 +118,7 @@ def get_chunks_by_app_source() -> list[dict]:
         conn.close()
 
 
-# ── Run logging ───────────────────────────────────────────────────────────────
+# -- Run logging ---------------------------------------------------------------
 
 def log_run_start(source: str, chunks_before: int) -> int:
     """Insert a 'running' pipeline_runs row. Returns the new run id."""
@@ -208,7 +208,7 @@ def get_running_sources() -> list[str]:
         conn.close()
 
 
-# ── Schedules ─────────────────────────────────────────────────────────────────
+# -- Schedules -----------------------------------------------------------------
 
 def get_schedules() -> list[dict]:
     """Return schedule config for all sources."""

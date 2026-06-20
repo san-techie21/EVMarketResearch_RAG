@@ -27,7 +27,7 @@ Overall, the video serves as a practical, step-by-step user guide that both begi
 ### Key Insights
 
 - ⚡ **Power Flow Visualization Enhances User Understanding:**  
-  The app’s color-coded real-time power flow diagram is a fundamental feature that visually connects users with where their electricity is coming from and going to—solar (yellow), Powerwall (green), grid (gray), home use (blue), and vehicle (red). This immediate feedback helps users quickly understand their energy patterns, how effectively their solar panels and Powerwall manage consumption, and when grid use is minimized. This intuitive visualization empowers users to make energy choices more consciously.
+  The app’s color-coded real-time power flow diagram is a fundamental feature that visually connects users with where their electricity is coming from and going to-solar (yellow), Powerwall (green), grid (gray), home use (blue), and vehicle (red). This immediate feedback helps users quickly understand their energy patterns, how effectively their solar panels and Powerwall manage consumption, and when grid use is minimized. This intuitive visualization empowers users to make energy choices more consciously.
 
 - 📊 **Granular Data and Historical Analysis Enables Informed Decisions:**  
   The ability to filter energy data by exact dates, months, or years and even scrub through 5-minute intervals offers deep insight into daily and long-term energy behaviors. Downloadable CSV files allow users or energy auditors to analyze performance precisely or compare actual consumption against utility billing, driving smarter energy management and potential cost savings by identifying peak usage times or inefficiencies.

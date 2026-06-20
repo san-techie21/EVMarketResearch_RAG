@@ -1,5 +1,5 @@
 """
-Observability Dashboard — RAG inference & pipeline metrics.
+Observability Dashboard - RAG inference & pipeline metrics.
 
 Access: superadmin (full) / superuser (read-only same view) / user (blocked)
 """
@@ -38,9 +38,9 @@ from rag.chat_ui.pipeline_db import (
     SOURCES,
 )
 
-# ── Page config ────────────────────────────────────────────────────────────────
+# -- Page config ----------------------------------------------------------------
 st.set_page_config(
-    page_title="Observability — EV Research",
+    page_title="Observability - EV Research",
     page_icon="📈",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -56,7 +56,7 @@ SOURCE_META = {
     "youtube":     {"icon": "🎬", "label": "YouTube"},
 }
 
-# ── Auth guard ─────────────────────────────────────────────────────────────────
+# -- Auth guard -----------------------------------------------------------------
 if not st.session_state.get("authentication_status"):
     st.warning("Please log in from the main chat page first.")
     st.page_link("app.py", label="← Go to Login", icon="💬")
@@ -74,11 +74,11 @@ if role == "user":
     st.page_link("app.py", label="← Back to Chat", icon="💬")
     st.stop()
 
-# ── DB setup ───────────────────────────────────────────────────────────────────
+# -- DB setup -------------------------------------------------------------------
 ensure_obs_tables()
 ensure_pipeline_tables()
 
-# ── CSS ────────────────────────────────────────────────────────────────────────
+# -- CSS ------------------------------------------------------------------------
 st.markdown("""
 <style>
 .kpi-card {
@@ -102,7 +102,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ── Header ─────────────────────────────────────────────────────────────────────
+# -- Header ---------------------------------------------------------------------
 st.markdown(
     "<h2 style='margin:0;font-size:1.35rem;color:#0f172a;'>📈 Observability</h2>"
     "<p style='font-size:0.82rem;color:#94a3b8;margin:0.1rem 0 1rem 0;'>"
@@ -117,7 +117,7 @@ with ref_col:
         st.cache_data.clear()
         st.rerun()
 
-# ── Tabs ───────────────────────────────────────────────────────────────────────
+# -- Tabs -----------------------------------------------------------------------
 tab_inference, tab_ragas, tab_pipeline, tab_queries, tab_errors = st.tabs([
     "🤖  Inference",
     "🧪  RAGAs Quality",
@@ -127,9 +127,9 @@ tab_inference, tab_ragas, tab_pipeline, tab_queries, tab_errors = st.tabs([
 ])
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# TAB 1 — INFERENCE
-# ══════════════════════════════════════════════════════════════════════════════
+# ==============================================================================
+# TAB 1 - INFERENCE
+# ==============================================================================
 with tab_inference:
 
     @st.cache_data(ttl=60)
@@ -144,7 +144,7 @@ with tab_inference:
 
     kpi, daily_vol, lat_trend, app_dist, tok_trend = _load_inference()
 
-    # ── KPI row ───────────────────────────────────────────────────────────
+    # -- KPI row -----------------------------------------------------------
     st.markdown("<p class='section-label'>Last 7 days</p>", unsafe_allow_html=True)
     k1, k2, k3, k4, k5, k6 = st.columns(6)
 
@@ -160,18 +160,18 @@ with tab_inference:
 
     _kpi(k1, f"{kpi.get('queries_today', 0):,}",    "Queries Today",     f"{kpi.get('queries_7d',0):,} this week")
     _kpi(k2, f"{kpi.get('total_queries', 0):,}",    "Total Queries",     "all time")
-    _kpi(k3, f"{kpi.get('avg_latency_ms') or '—'} ms", "Avg Latency",    "end-to-end (7d)")
-    _kpi(k4, f"{kpi.get('p95_latency_ms') or '—'} ms", "P95 Latency",    "95th percentile (7d)")
+    _kpi(k3, f"{kpi.get('avg_latency_ms') or '-'} ms", "Avg Latency",    "end-to-end (7d)")
+    _kpi(k4, f"{kpi.get('p95_latency_ms') or '-'} ms", "P95 Latency",    "95th percentile (7d)")
     _kpi(k5, f"{kpi.get('errors_7d', 0):,}",        "Errors",            "last 7 days")
     _kpi(k6, f"{(kpi.get('tokens_today') or 0):,}", "Tokens Today",      f"{(kpi.get('tokens_7d') or 0):,} this week")
 
     st.markdown("<div style='margin-top:1.2rem'></div>", unsafe_allow_html=True)
 
-    # ── Query volume chart ────────────────────────────────────────────────
+    # -- Query volume chart ------------------------------------------------
     chart_l, chart_r = st.columns(2)
 
     with chart_l:
-        st.markdown("<p class='section-label'>Query volume — last 14 days</p>", unsafe_allow_html=True)
+        st.markdown("<p class='section-label'>Query volume - last 14 days</p>", unsafe_allow_html=True)
         if daily_vol:
             df_vol = pd.DataFrame(daily_vol)
             df_vol["day"] = pd.to_datetime(df_vol["day"]).dt.strftime("%b %d")
@@ -182,7 +182,7 @@ with tab_inference:
             st.info("No queries logged yet.")
 
     with chart_r:
-        st.markdown("<p class='section-label'>Latency breakdown — last 7 days (ms)</p>", unsafe_allow_html=True)
+        st.markdown("<p class='section-label'>Latency breakdown - last 7 days (ms)</p>", unsafe_allow_html=True)
         if lat_trend:
             df_lat = pd.DataFrame(lat_trend)
             df_lat["day"] = pd.to_datetime(df_lat["day"]).dt.strftime("%b %d")
@@ -196,7 +196,7 @@ with tab_inference:
         else:
             st.info("No latency data yet.")
 
-    # ── App distribution + Token trend ───────────────────────────────────
+    # -- App distribution + Token trend -----------------------------------
     dist_l, dist_r = st.columns(2)
 
     with dist_l:
@@ -208,7 +208,7 @@ with tab_inference:
             st.info("No data yet.")
 
     with dist_r:
-        st.markdown("<p class='section-label'>Token usage — last 7 days</p>", unsafe_allow_html=True)
+        st.markdown("<p class='section-label'>Token usage - last 7 days</p>", unsafe_allow_html=True)
         if tok_trend:
             df_tok = pd.DataFrame(tok_trend)
             df_tok["day"] = pd.to_datetime(df_tok["day"]).dt.strftime("%b %d")
@@ -223,9 +223,9 @@ with tab_inference:
             st.info("No token data yet.")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# TAB 2 — RAGAs QUALITY
-# ══════════════════════════════════════════════════════════════════════════════
+# ==============================================================================
+# TAB 2 - RAGAs QUALITY
+# ==============================================================================
 with tab_ragas:
 
     @st.cache_data(ttl=60)
@@ -235,22 +235,22 @@ with tab_ragas:
     ragas_kpi, ragas_trend, low_scores = _load_ragas()
     pending_count = len(get_unevaluated_queries(limit=1))
 
-    # ── Header explanation ────────────────────────────────────────────────
+    # -- Header explanation ------------------------------------------------
     st.markdown("""
     <div style='background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;
     padding:0.8rem 1.1rem;margin-bottom:1.2rem;font-size:0.84rem;color:#0c4a6e;'>
-    <strong>🧪 RAGAs — Retrieval Augmented Generation Assessment</strong><br>
+    <strong>🧪 RAGAs - Retrieval Augmented Generation Assessment</strong><br>
     Uses <em>Claude Haiku as an LLM judge</em> to score every query automatically
     in the background (batch of 10, every 30 min). No ground truth required.<br><br>
-    <strong>Faithfulness</strong> — Does the answer only use info from the retrieved chunks?
+    <strong>Faithfulness</strong> - Does the answer only use info from the retrieved chunks?
     (Detects hallucinations) &nbsp;·&nbsp;
-    <strong>Answer Relevancy</strong> — Does the answer address what was asked?
+    <strong>Answer Relevancy</strong> - Does the answer address what was asked?
     &nbsp;·&nbsp;
-    <strong>Context Precision</strong> — Were the retrieved chunks relevant to the question?
+    <strong>Context Precision</strong> - Were the retrieved chunks relevant to the question?
     </div>
     """, unsafe_allow_html=True)
 
-    # ── Manual trigger ────────────────────────────────────────────────────
+    # -- Manual trigger ----------------------------------------------------
     is_superadmin_here = (role == "superadmin")
     trig_col, status_col = st.columns([2, 5])
     with trig_col:
@@ -290,8 +290,8 @@ with tab_ragas:
 
     st.markdown("<div style='margin-top:0.8rem'></div>", unsafe_allow_html=True)
 
-    # ── KPI cards ─────────────────────────────────────────────────────────
-    st.markdown("<p class='section-label'>Average scores — last 7 days (0–1, higher is better)</p>",
+    # -- KPI cards ---------------------------------------------------------
+    st.markdown("<p class='section-label'>Average scores - last 7 days (0-1, higher is better)</p>",
                 unsafe_allow_html=True)
 
     def _score_color(v):
@@ -312,7 +312,7 @@ with tab_ragas:
             display = f"{val or 0}"
             tc, bg   = "#0f172a", "#f8fafc"
         else:
-            display = f"{val:.2f}" if val is not None else "—"
+            display = f"{val:.2f}" if val is not None else "-"
             tc, bg   = _score_color(val)
         col.markdown(
             f"<div class='kpi-card' style='border-color:{bg};'>"
@@ -325,8 +325,8 @@ with tab_ragas:
 
     st.markdown("<div style='margin-top:1rem'></div>", unsafe_allow_html=True)
 
-    # ── Trend chart ───────────────────────────────────────────────────────
-    st.markdown("<p class='section-label'>Score trends — last 14 days</p>", unsafe_allow_html=True)
+    # -- Trend chart -------------------------------------------------------
+    st.markdown("<p class='section-label'>Score trends - last 14 days</p>", unsafe_allow_html=True)
     if ragas_trend:
         df_ragas = pd.DataFrame(ragas_trend)
         df_ragas["day"] = pd.to_datetime(df_ragas["day"]).dt.strftime("%b %d")
@@ -341,9 +341,9 @@ with tab_ragas:
         else:
             st.info("Scores will appear here after the first evaluation batch runs.")
     else:
-        st.info("No RAGAs data yet — trigger an evaluation above or wait for the scheduled run.")
+        st.info("No RAGAs data yet - trigger an evaluation above or wait for the scheduled run.")
 
-    # ── Low-scoring queries ───────────────────────────────────────────────
+    # -- Low-scoring queries -----------------------------------------------
     if low_scores:
         st.markdown("<p class='section-label'>⚠️ Low-scoring queries (any metric < 0.6)</p>",
                     unsafe_allow_html=True)
@@ -353,7 +353,7 @@ with tab_ragas:
             ago  = f"{hrs}h ago" if hrs < 48 else f"{hrs // 24}d ago"
 
             def _badge(v, label):
-                if v is None: return f"<span style='color:#94a3b8'>{label}: —</span>"
+                if v is None: return f"<span style='color:#94a3b8'>{label}: -</span>"
                 tc, bg = _score_color(v)
                 return (f"<span style='background:{bg};color:{tc};font-size:0.7rem;"
                         f"font-weight:600;padding:0.15rem 0.45rem;border-radius:999px;"
@@ -379,9 +379,9 @@ with tab_ragas:
         st.success("✅ No low-scoring queries detected.")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# TAB 3 — PIPELINE
-# ══════════════════════════════════════════════════════════════════════════════
+# ==============================================================================
+# TAB 3 - PIPELINE
+# ==============================================================================
 with tab_pipeline:
 
     @st.cache_data(ttl=60)
@@ -413,7 +413,7 @@ with tab_pipeline:
             hrs    = int(diff.total_seconds() // 3600)
             ago    = f"{hrs}h ago" if hrs < 48 else f"{hrs // 24}d ago"
             dur_s  = run.get("duration_secs") or 0
-            dur    = f"{dur_s // 60}m {dur_s % 60}s" if dur_s else "—"
+            dur    = f"{dur_s // 60}m {dur_s % 60}s" if dur_s else "-"
 
             if status == "running":
                 pill = "<span class='pill-warn'>⏳ Running</span>"
@@ -431,9 +431,9 @@ with tab_pipeline:
             st.markdown("<hr style='margin:0.25rem 0;border:none;border-top:1px solid #f1f5f9;'>", unsafe_allow_html=True)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# TAB 3 — QUERY LOG
-# ══════════════════════════════════════════════════════════════════════════════
+# ==============================================================================
+# TAB 3 - QUERY LOG
+# ==============================================================================
 with tab_queries:
 
     @st.cache_data(ttl=30)
@@ -506,7 +506,7 @@ with tab_queries:
             c1, c2, c3, c4, c5, c6, c7 = st.columns([3.5, 1.2, 1.2, 1.2, 1.2, 1.2, 0.8])
             c1.markdown(f"<p class='q-row' style='margin:0.3rem 0'>{q['question']}</p>",
                         unsafe_allow_html=True)
-            c2.markdown(f"<p class='q-meta' style='margin:0.35rem 0'>{q['username'] or '—'}<br>{ago}</p>",
+            c2.markdown(f"<p class='q-meta' style='margin:0.35rem 0'>{q['username'] or '-'}<br>{ago}</p>",
                         unsafe_allow_html=True)
             c3.markdown(f"<p class='q-meta' style='margin:0.35rem 0'>{app_label}</p>",
                         unsafe_allow_html=True)
@@ -517,7 +517,7 @@ with tab_queries:
             c5.markdown(f"<p class='q-meta' style='margin:0.35rem 0'>{tokens:,}<br>"
                         f"<span style='font-size:0.68rem'>in:{q['input_tokens']} out:{q['output_tokens']}</span></p>",
                         unsafe_allow_html=True)
-            top_s = f"{float(q['top_score']):.3f}" if q["top_score"] else "—"
+            top_s = f"{float(q['top_score']):.3f}" if q["top_score"] else "-"
             c6.markdown(f"<p class='q-meta' style='margin:0.35rem 0'>{top_s}<br>"
                         f"{q['chunks_returned']} chunks</p>",
                         unsafe_allow_html=True)
@@ -531,9 +531,9 @@ with tab_queries:
                         unsafe_allow_html=True)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# TAB 4 — ERRORS
-# ══════════════════════════════════════════════════════════════════════════════
+# ==============================================================================
+# TAB 4 - ERRORS
+# ==============================================================================
 with tab_errors:
 
     @st.cache_data(ttl=60)

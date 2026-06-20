@@ -1,5 +1,5 @@
 """
-manage_users.py — generate hashed passwords for users.yaml
+manage_users.py - generate hashed passwords for users.yaml
 
 USAGE:
 ------
@@ -7,14 +7,14 @@ USAGE:
 2. Run:  .venv\Scripts\python.exe utils\manage_users.py
 3. Copy the printed YAML block into config/users.yaml under credentials.usernames
 
-The plain-text passwords are NEVER stored anywhere — only the bcrypt hashes
+The plain-text passwords are NEVER stored anywhere - only the bcrypt hashes
 go into users.yaml. You hand the plain-text passwords to users separately.
 """
 
 import bcrypt
 
 # ---------------------------------------------------------------------------
-# Edit this — username: plain_text_password
+# Edit this - username: plain_text_password
 # ---------------------------------------------------------------------------
 USERS = {
     "admin":  "admin123",

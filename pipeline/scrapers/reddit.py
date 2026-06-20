@@ -1,5 +1,5 @@
 """
-Reddit scraper using public JSON endpoints — no API key required.
+Reddit scraper using public JSON endpoints - no API key required.
 Searches r/electricvehicles and r/ChargingStations for each target app.
 
 Usage:

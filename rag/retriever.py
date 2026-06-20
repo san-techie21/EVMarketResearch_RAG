@@ -75,10 +75,10 @@ def retrieve(question: str, app_filter: Optional[str] = None, top_k: int = TOP_K
     - YouTube (min_youtube=2): queries mentioning youtube/video/tutorial bump to 6.
       Fallback score threshold: 0.50.  Skipped when app_filter is set.
     - News (min_news=2): always ensures at least min_news news chunks appear.
-      No score threshold — news chunks are short (headline-only until re-scraped)
+      No score threshold - news chunks are short (headline-only until re-scraped)
       and score low vs reviews; any relevant news headline is worth surfacing.
     - Web pages (min_web=2): always ensures at least min_web web_pages chunks.
-      No score threshold — official website content should always be represented.
+      No score threshold - official website content should always be represented.
     Both news and web guarantees respect app_filter and category_filter when set.
     """
     q_words = set(question.lower().split())
@@ -152,7 +152,7 @@ def retrieve(question: str, app_filter: Optional[str] = None, top_k: int = TOP_K
 
             # --- Guarantee news representation ---
             # News chunks are short (RSS headlines only until re-scraped) and score
-            # poorly against reviews. Force at least min_news in — any threshold
+            # poorly against reviews. Force at least min_news in - any threshold
             # would often exclude them entirely.  Runs even when app_filter is set
             # so app-specific queries still surface relevant press coverage.
             if min_news > 0:
@@ -244,7 +244,7 @@ def retrieve_by_source(question: str, source: str, top_k: int = TOP_K) -> list[d
 def retrieve_per_app(question: str, n_per_app: int = 3,
                      app_list: Optional[list] = None,
                      category_filter: Optional[str] = None) -> list[dict]:
-    """Fetch the top n_per_app chunks from EACH app — guarantees all-app coverage.
+    """Fetch the top n_per_app chunks from EACH app - guarantees all-app coverage.
     Used for comparison queries where global top-K would miss some apps entirely.
 
     app_list overrides ALL_APPS when provided.

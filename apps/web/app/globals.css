@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
-/* ════════════════════════════════════════════════════════════════════
-   AURORA GLASS — design system
-   ════════════════════════════════════════════════════════════════════ */
+/* ====================================================================
+   AURORA GLASS - design system
+   ==================================================================== */
 @theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -45,7 +45,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* ── Glass surfaces ───────────────────────────────────────────────── */
+/* -- Glass surfaces ------------------------------------------------- */
 .glass {
   background: var(--glass);
   backdrop-filter: blur(22px) saturate(150%);
@@ -70,7 +70,7 @@ body {
   border-color: var(--glass-border-2);
 }
 
-/* ── Gradient ink ─────────────────────────────────────────────────── */
+/* -- Gradient ink --------------------------------------------------- */
 .text-gradient {
   background: linear-gradient(115deg, #67e8f9 0%, #818cf8 45%, #c084fc 100%);
   -webkit-background-clip: text;
@@ -80,7 +80,7 @@ body {
 .brand-gradient { background: linear-gradient(120deg, #22d3ee, #6366f1 55%, #a855f7); }
 .glow-ring { box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 0 30px -6px rgba(99,102,241,.6); }
 
-/* ── Keyframes ────────────────────────────────────────────────────── */
+/* -- Keyframes ------------------------------------------------------ */
 @keyframes drift-a {
   0%   { transform: translate(0, 0) scale(1); }
   33%  { transform: translate(8vw, 6vh) scale(1.15); }
@@ -120,13 +120,13 @@ body {
   animation: shimmer 1.6s linear infinite;
 }
 
-/* ── Scrollbar ────────────────────────────────────────────────────── */
+/* -- Scrollbar ------------------------------------------------------ */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.10); border-radius: 999px; border: 2px solid transparent; background-clip: padding-box; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,.18); background-clip: padding-box; }
 ::-webkit-scrollbar-track { background: transparent; }
 
-/* ── Reduced motion ───────────────────────────────────────────────── */
+/* -- Reduced motion ------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
 }

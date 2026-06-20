@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+/* ════════════════════════════════════════════════════════════════════
+   AURORA GLASS — design system
+   ════════════════════════════════════════════════════════════════════ */
+@theme {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-ink:        #05060d;
+  --color-ink-2:      #080a16;
+  --color-cyan:       #22d3ee;
+  --color-blue:       #38bdf8;
+  --color-violet:     #8b5cf6;
+  --color-emerald:    #34d399;
+}
+
+:root {
+  --bg:            #05060d;
+  --bg-2:          #080a16;
+  --text:          #e9edf7;
+  --text-2:        #9aa6c0;
+  --text-3:        #6b7793;
+
+  --accent-cyan:   #22d3ee;
+  --accent-blue:   #38bdf8;
+  --accent-violet: #8b5cf6;
+  --accent-emerald:#34d399;
+
+  --glass:         rgba(255, 255, 255, 0.045);
+  --glass-2:       rgba(255, 255, 255, 0.075);
+  --glass-border:  rgba(255, 255, 255, 0.10);
+  --glass-border-2:rgba(255, 255, 255, 0.16);
+}
+
+* { box-sizing: border-box; }
+html { color-scheme: dark; scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── Glass surfaces ───────────────────────────────────────────────── */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+.glass-2 {
+  background: var(--glass-2);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid var(--glass-border-2);
+  box-shadow:
+    0 16px 50px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+.glass-hover { transition: background .25s ease, border-color .25s ease, transform .25s ease; }
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: var(--glass-border-2);
+}
+
+/* ── Gradient ink ─────────────────────────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(115deg, #67e8f9 0%, #818cf8 45%, #c084fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.brand-gradient { background: linear-gradient(120deg, #22d3ee, #6366f1 55%, #a855f7); }
+.glow-ring { box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 0 30px -6px rgba(99,102,241,.6); }
+
+/* ── Keyframes ────────────────────────────────────────────────────── */
+@keyframes drift-a {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(8vw, 6vh) scale(1.15); }
+  66%  { transform: translate(-6vw, 10vh) scale(0.92); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+@keyframes drift-b {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-10vw, -8vh) scale(1.2); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+@keyframes drift-c {
+  0%   { transform: translate(0, 0) scale(1.05); }
+  40%  { transform: translate(7vw, -6vh) scale(0.9); }
+  80%  { transform: translate(-5vw, 4vh) scale(1.15); }
+  100% { transform: translate(0, 0) scale(1.05); }
+}
+@keyframes floaty   { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes glow-pulse {
+  0%,100% { opacity: .7; box-shadow: 0 0 26px -4px rgba(56,189,248,.55), 0 0 60px -10px rgba(139,92,246,.5); }
+  50%     { opacity: 1;  box-shadow: 0 0 40px 0 rgba(56,189,248,.8), 0 0 90px -6px rgba(139,92,246,.7); }
+}
+@keyframes shine {
+  0%   { transform: translateX(-120%) skewX(-18deg); }
+  100% { transform: translateX(220%)  skewX(-18deg); }
+}
+@keyframes shimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+@keyframes dot-bounce { 0%,80%,100% { transform: scale(.5); opacity:.4; } 40% { transform: scale(1); opacity:1; } }
+
+.animate-floaty   { animation: floaty 6s ease-in-out infinite; }
+.animate-glow     { animation: glow-pulse 4.5s ease-in-out infinite; }
+
+/* Shimmer skeleton for the "thinking" state */
+.shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,.04) 25%, rgba(255,255,255,.12) 37%, rgba(255,255,255,.04) 63%);
+  background-size: 800px 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,.10); border-radius: 999px; border: 2px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,.18); background-clip: padding-box; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ── Reduced motion ───────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}

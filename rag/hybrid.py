@@ -35,9 +35,14 @@ from typing import Optional
 import psycopg2
 import psycopg2.extras
 
-from rag.retriever import _get_conn, embed_texts  # reuse DB + embedder
-
 log = logging.getLogger(__name__)
+
+
+def _retriever():
+    """Lazy import of the embedder + DB conn (pulls torch/anthropic) so the pure
+    helpers (RRF) and the reranker stay importable without the heavy stack."""
+    from rag.retriever import _get_conn, embed_texts
+    return _get_conn, embed_texts
 
 RERANKER_MODEL    = os.environ.get("RERANKER_MODEL", "cross-encoder/ms-marco-MiniLM-L-6-v2")
 HYBRID_CANDIDATES = int(os.environ.get("HYBRID_CANDIDATES", 40))
@@ -134,7 +139,8 @@ def _tsv_expr() -> str:
     """Return the tsvector SQL expression, using the indexed column if present."""
     global _HAS_TSV
     if _HAS_TSV is None:
-        conn = _get_conn()
+        get_conn, _ = _retriever()
+        conn = get_conn()
         try:
             with conn.cursor() as cur:
                 cur.execute("""
@@ -179,11 +185,12 @@ def hybrid_retrieve(question: str,
     Each returned chunk has: source, app_name, category, content, metadata,
     score (vector cosine if available), rrf_score, and rerank_score (if reranked).
     """
+    get_conn, embed_texts = _retriever()
     vec = embed_texts([question])[0]
     vec_str = "[" + ",".join(str(v) for v in vec) + "]"
     where, where_params = _where_clause(app_filter, category_filter)
 
-    conn = _get_conn()
+    conn = get_conn()
     try:
         with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
             vec_hits = _vector_search(cur, vec_str, where, where_params, candidates)

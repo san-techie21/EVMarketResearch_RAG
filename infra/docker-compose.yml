@@ -1,0 +1,58 @@
+# Self-host stack for the EV Market Research RAG (v3).
+#
+#   docker compose -f infra/docker-compose.yml up -d db      # just the database
+#   docker compose -f infra/docker-compose.yml up -d         # full stack
+#
+# Brings up Postgres+pgvector with the schema pre-loaded, the FastAPI backend,
+# and the Next.js frontend — no cloud dependency. Configure via infra/.env
+# (copy from infra/.env.example).
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: evrag-db
+    environment:
+      POSTGRES_USER:     ${POSTGRES_USER:-evrag}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-evrag_dev_pw}
+      POSTGRES_DB:       ${POSTGRES_DB:-ev_research}
+    ports:
+      - "${DB_PORT:-5433}:5432"
+    volumes:
+      - evrag_pgdata:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-evrag} -d ${POSTGRES_DB:-ev_research}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    container_name: evrag-api
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-evrag}:${POSTGRES_PASSWORD:-evrag_dev_pw}@db:5432/${POSTGRES_DB:-ev_research}
+    ports:
+      - "${API_PORT:-8000}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    profiles: ["full"]
+
+  web:
+    build:
+      context: ../apps/web
+      dockerfile: Dockerfile
+    container_name: evrag-web
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:${API_PORT:-8000}
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    depends_on:
+      - api
+    profiles: ["full"]
+
+volumes:
+  evrag_pgdata:

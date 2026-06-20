@@ -10,13 +10,27 @@ from pathlib import Path
 # repo root on sys.path so `rag` and `pipeline` import inside the container/dev
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
+from contextlib import asynccontextmanager        # noqa: E402
+
 from fastapi import FastAPI                       # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
 
 from apps.api.core.config import settings         # noqa: E402
+from apps.api.core.db_init import ensure_schema   # noqa: E402
 from apps.api.routers import auth, chat, stats     # noqa: E402
 
-app = FastAPI(title="Voltaic API", version="3.0.0")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Self-initialize the schema on a fresh database (cloud deploys).
+    try:
+        ensure_schema()
+    except Exception:
+        pass
+    yield
+
+
+app = FastAPI(title="Voltaic API", version="3.0.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

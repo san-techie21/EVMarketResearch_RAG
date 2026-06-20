@@ -1,0 +1,17 @@
+# Keep the API build context small (it's the repo root). The API image does NOT
+# need the web app, node_modules, the local Python venv, scraped data, or git.
+.git
+**/node_modules
+**/.next
+.venv/
+venv/
+**/__pycache__/
+**/*.pyc
+apps/web/
+data/
+.vercel/
+*.log
+infra/.env
+config/.env
+.claude/
+knowledge_base/

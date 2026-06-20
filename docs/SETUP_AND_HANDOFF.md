@@ -145,15 +145,21 @@ docker compose restart api
 
 ## Q5. How do I put it online (so others can use it, not just localhost)?
 
-Three free pieces:
-1. **Database** → [Neon](https://neon.tech) or [Supabase](https://supabase.com) (free
-   Postgres with pgvector). Run the schema once: `infra/db/01_init.sql`.
-2. **API** → [Render](https://render.com) or [Railway](https://railway.app) free tier.
-   Deploy `apps/api` (it has a Dockerfile). Set `DATABASE_URL` + `LLM_API_KEY` in its
-   env. Note its public URL, e.g. `https://voltaic-api.onrender.com`.
-3. **Web** → [Vercel](https://vercel.com) (already set up). In the project's
-   Settings → Environment Variables, set `NEXT_PUBLIC_API_URL` to the API's public URL,
-   then redeploy. The UI flips from demo to live automatically.
+**API + Database (one click): the included Render blueprint.**
+The repo ships a `render.yaml`. Your friend just:
+1. Pushes the repo to his own GitHub.
+2. Goes to [Render](https://render.com) → New → **Blueprint** → picks the repo.
+3. Render reads `render.yaml` and **auto-creates the API + a Postgres database**, wires
+   `DATABASE_URL` automatically, and the API self-creates its schema on first boot.
+4. In the `voltaic-api` service → Environment, he pastes his `LLM_API_KEY`. Done.
+   He copies the public API URL Render gives, e.g. `https://voltaic-api.onrender.com`.
+
+(Alternative DB: [Neon](https://neon.tech) / [Supabase](https://supabase.com) free
+pgvector if he prefers - the API self-initializes the schema either way.)
+
+**Web → [Vercel](https://vercel.com)** (already set up). In the project's
+Settings → Environment Variables, set `NEXT_PUBLIC_API_URL` to the API's public URL,
+then redeploy. The UI flips from demo to live automatically.
 
 That's the whole production path - no servers to manage, no domain required (you get
 free `*.vercel.app` / `*.onrender.com` URLs).

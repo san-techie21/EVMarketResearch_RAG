@@ -34,6 +34,25 @@ export async function login(username: string, password: string): Promise<boolean
   }
 }
 
+export interface KbStats {
+  total: number;
+  apps: number;
+  bySource: { source: string; count: number }[];
+}
+
+/** Real knowledge-base stats in live mode; null in demo mode (use mock). */
+export async function getStats(): Promise<KbStats | null> {
+  if (!isLive()) return null;
+  try {
+    const r = await fetch(`${API}/api/stats`);
+    if (!r.ok) return null;
+    const d = await r.json();
+    return { total: d.total ?? 0, apps: d.apps ?? 0, bySource: d.bySource ?? [] };
+  } catch {
+    return null;
+  }
+}
+
 export interface AskResult {
   answer: string;
   sources: Source[];

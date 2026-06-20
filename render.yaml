@@ -1,0 +1,37 @@
+# One-click deploy of the Voltaic backend to Render (https://render.com).
+#
+# How your friend uses it:
+#   1. Push this repo to his GitHub.
+#   2. Render dashboard -> New -> Blueprint -> pick the repo.
+#   3. Render reads this file and creates the API + a Postgres database.
+#   4. In the voltaic-api service -> Environment, paste his LLM_API_KEY. Done.
+#
+# The web frontend goes on Vercel separately, with NEXT_PUBLIC_API_URL pointed at
+# the URL Render gives this service. See docs/SETUP_AND_HANDOFF.md.
+
+databases:
+  - name: voltaic-db
+    plan: free
+    postgresMajorVersion: "16"
+
+services:
+  - type: web
+    name: voltaic-api
+    runtime: docker
+    dockerfilePath: ./apps/api/Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: voltaic-db
+          property: connectionString
+      - key: LLM_PROVIDER
+        value: anthropic
+      - key: LLM_API_KEY
+        sync: false            # paste this in the Render dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: "*"

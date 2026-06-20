@@ -1,9 +1,17 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { TrendingUp, Newspaper, Swords, MapPin, Sparkles } from "lucide-react";
 import { CountUp } from "@/components/count-up";
 import { KB_STATS, SENTIMENT_SERIES, TOP_THEMES, SOURCE_LABELS } from "@/lib/mock";
+import { getStats, isLive, type KbStats } from "@/lib/api";
+
+const SOURCE_COLOR: Record<string, string> = {
+  google_play: "#22d3ee", app_store: "#818cf8", news: "#c084fc",
+  web_pages: "#34d399", youtube: "#f472b6", documents: "#38bdf8",
+};
+const label = (s: string) => (SOURCE_LABELS as Record<string, string>)[s] ?? s;
 
 const card = {
   hidden: { opacity: 0, y: 18 },
@@ -14,6 +22,16 @@ const card = {
 };
 
 export function InsightsView() {
+  const [live, setLive] = useState<KbStats | null>(null);
+  useEffect(() => { getStats().then(setLive); }, []);
+
+  const total = live?.total ?? KB_STATS.total;
+  const appCount = live?.apps ?? KB_STATS.apps;
+  const bySource: { source: string; count: number; color: string }[] = live
+    ? live.bySource.map((s) => ({ ...s, color: SOURCE_COLOR[s.source] ?? "#94a3b8" }))
+    : KB_STATS.bySource;
+  const sourceCount = live ? bySource.length : 5;
+
   return (
     <div className="h-full overflow-y-auto px-4 py-6 md:px-8">
       <div className="mx-auto max-w-5xl">
@@ -22,16 +40,19 @@ export function InsightsView() {
             Market <span className="text-gradient">Pulse</span>
           </h1>
           <p className="mt-1 text-sm text-[var(--text-2)]">
-            Live competitive signal across the EV &amp; energy app landscape.
+            {isLive()
+              ? "Knowledge stats are live from your data. Trend analytics below are a roadmap preview."
+              : "Live competitive signal across the EV & energy app landscape."}
           </p>
         </motion.div>
 
         {/* KPI row */}
         <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
-          <Kpi i={0} label="Knowledge chunks" value={<CountUp to={KB_STATS.total} />} accent="#22d3ee" />
-          <Kpi i={1} label="Apps tracked" value={<CountUp to={KB_STATS.apps} />} accent="#8b5cf6" />
-          <Kpi i={2} label="Live stations" value={<CountUp to={61240} />} accent="#34d399" />
-          <Kpi i={3} label="Sources" value={"5"} accent="#f472b6" />
+          <Kpi i={0} label="Knowledge chunks" value={<CountUp to={total} />} accent="#22d3ee" />
+          <Kpi i={1} label={isLive() ? "Groups" : "Apps tracked"} value={<CountUp to={appCount} />} accent="#8b5cf6" />
+          <Kpi i={2} label="Sources" value={<CountUp to={sourceCount} />} accent="#34d399" />
+          <Kpi i={3} label={isLive() ? "Status" : "Live stations"}
+               value={isLive() ? "Live" : <CountUp to={61240} />} accent="#f472b6" />
         </div>
 
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
@@ -50,12 +71,12 @@ export function InsightsView() {
           <motion.div variants={card} custom={5} initial="hidden" animate="show" className="glass rounded-2xl p-5">
             <CardHead icon={Newspaper} title="Knowledge mix" sub="chunks by source" />
             <div className="mt-4 space-y-3">
-              {KB_STATS.bySource.map((s, i) => {
-                const pct = Math.round((s.count / KB_STATS.total) * 100);
+              {bySource.map((s, i) => {
+                const pct = total ? Math.round((s.count / total) * 100) : 0;
                 return (
                   <div key={s.source}>
                     <div className="mb-1 flex justify-between text-[12px]">
-                      <span className="text-[var(--text-2)]">{SOURCE_LABELS[s.source]}</span>
+                      <span className="text-[var(--text-2)]">{label(s.source)}</span>
                       <span className="text-[var(--text-3)]">{s.count.toLocaleString()}</span>
                     </div>
                     <div className="h-2 overflow-hidden rounded-full bg-white/5">

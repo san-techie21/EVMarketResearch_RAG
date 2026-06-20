@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUp, Sparkles, FileText, ChevronDown } from "lucide-react";
 import { Markdown } from "@/components/markdown";
 import {
-  APPS, SOURCE_LABELS, EXAMPLE_QUESTIONS, DEMO_ANSWER, DEMO_SOURCES, type Source,
+  APPS, SOURCE_LABELS, EXAMPLE_QUESTIONS, answerFor, type Source,
 } from "@/lib/mock";
 
 interface Msg {
@@ -41,9 +41,10 @@ export function ChatView() {
     ]);
     setInput("");
 
-    // simulate retrieval, then stream the answer word-by-word
+    // route the question to the most relevant answer, then stream it word-by-word
+    const { answer, sources } = answerFor(text);
     setTimeout(() => {
-      const tokens = DEMO_ANSWER.split(/(\s+)/);
+      const tokens = answer.split(/(\s+)/);
       let i = 0;
       const timer = setInterval(() => {
         i += 2;
@@ -52,7 +53,7 @@ export function ChatView() {
         setMessages((m) =>
           m.map((msg) =>
             msg.id === aId
-              ? { ...msg, content: partial, thinking: false, sources: done ? DEMO_SOURCES : undefined }
+              ? { ...msg, content: partial, thinking: false, sources: done ? sources : undefined }
               : msg,
           ),
         );
@@ -103,7 +104,7 @@ export function ChatView() {
                         ) : (
                           <>
                             <Markdown text={m.content} />
-                            {m.sources && <Sources sources={m.sources} />}
+                            {m.sources && m.sources.length > 0 && <Sources sources={m.sources} />}
                           </>
                         )}
                       </div>

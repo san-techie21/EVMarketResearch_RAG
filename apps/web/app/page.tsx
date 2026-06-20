@@ -110,11 +110,11 @@ export default function LoginPage() {
           <form onSubmit={onSubmit} className="space-y-4">
             <Field
               icon={<Mail className="h-4 w-4" />}
-              label="Email"
-              type="email"
+              label="Email or username"
+              type="text"
               value={email}
               onChange={setEmail}
-              placeholder="you@company.com"
+              placeholder="you@company.com or admin"
             />
             <Field
               icon={<Lock className="h-4 w-4" />}

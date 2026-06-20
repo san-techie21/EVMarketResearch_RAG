@@ -50,9 +50,9 @@ app with no cloud dependency — so a fork can run the whole thing locally.
 | # | Phase | Status |
 |---|---|---|
 | 1 | **News overhaul** (free, full-text, multi-source) | ✅ DONE (tested live) |
-| 2 | **Retrieval quality** (hybrid + RRF + rerank) | ⏳ next |
-| 3 | **Security hardening** | ⏳ next |
-| 4 | **Self-host infra** (docker-compose + pgvector + migrations) | ⏳ |
+| 2 | **Retrieval quality** (hybrid + RRF + rerank) | ✅ code complete (RRF unit-tested; live DB test pending Phase 4) |
+| 3 | **Security hardening** | ✅ quick-wins done (cookie key→env, XSRF on, conn-leak fix) |
+| 4 | **Self-host infra** (docker-compose + pgvector + migrations) | ⏳ next (unlocks live retrieval testing) |
 | 5 | **FastAPI backend** (JWT, SSE streaming, insights, stations) | ⏳ |
 | 6 | **Next.js frontend** (login, chat, dashboards) | ⏳ |
 | 7 | **Innovative features** (below) | ⏳ |

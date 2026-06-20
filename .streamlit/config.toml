@@ -8,5 +8,7 @@ font                   = "sans serif"
 
 [server]
 headless               = true
+# SECURITY: XSRF protection must stay ON. (Was disabled in v2.) The reverse proxy
+# (Caddy/nginx) forwards WebSocket upgrade headers so this works behind a proxy.
 enableCORS             = false
-enableXsrfProtection   = false
+enableXsrfProtection   = true

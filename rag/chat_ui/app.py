@@ -716,10 +716,15 @@ CONFIG_PATH = Path(__file__).parents[2] / "config" / "users.yaml"
 with open(CONFIG_PATH) as f:
     auth_config = yaml.load(f, Loader=SafeLoader)
 
+# SECURITY: the cookie signing key must NOT live in a committed file (anyone with
+# the repo could forge auth cookies). Read it from the environment; fall back to
+# the yaml value only for local/dev so existing setups keep working.
+_cookie_key = os.environ.get("AUTH_COOKIE_KEY") or auth_config["cookie"]["key"]
+
 authenticator = stauth.Authenticate(
     auth_config["credentials"],
     auth_config["cookie"]["name"],
-    auth_config["cookie"]["key"],
+    _cookie_key,
     auth_config["cookie"]["expiry_days"],
     auto_hash=False,
 )
@@ -785,14 +790,19 @@ if "messages" not in st.session_state:
 # ---------------------------------------------------------------------------
 @st.cache_data(ttl=300)
 def _get_kb_counts() -> int:
+    # Fixed: previously conn.close() sat after `return` (unreachable) → leaked a
+    # connection on every cache miss. Now closed in finally.
+    conn = None
     try:
         conn = psycopg2.connect(os.environ["DATABASE_URL"])
         with conn.cursor() as cur:
             cur.execute("SELECT COUNT(*) FROM document_chunks")
             return cur.fetchone()[0]
-        conn.close()
     except Exception:
         return 11_322
+    finally:
+        if conn is not None:
+            conn.close()
 
 
 # ---------------------------------------------------------------------------

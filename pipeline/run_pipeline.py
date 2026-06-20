@@ -175,12 +175,23 @@ def read_youtube(app_filter: str | None = None) -> list[dict]:
 
 
 def read_news(app_filter: str | None = None) -> list[dict]:
-    """Yields raw document dicts from Google News RSS JSON files."""
+    """Yields raw document dicts from news JSON files (news_feeds.py / news_rss.py).
+
+    The v3 scraper (news_feeds.py) provides full bodies + real `published_at`
+    timestamps + publisher names; the title is prepended to the body so the
+    chunk is self-describing for retrieval. Legacy files (title+description
+    only) still work via the fallback.
+    """
     docs = []
     base = DATA_DIR / "raw" / "text" / "news"
+    if not base.exists():
+        log.warning("News data directory not found — run news_feeds.py first")
+        return docs
     for app_dir in sorted(base.iterdir()):
         if app_filter and app_dir.name != app_filter:
             continue
+        # "_general" folder maps to app_name="general"
+        app_name = "general" if app_dir.name == "_general" else app_dir.name
         articles_file = app_dir / "articles.json"
         if not articles_file.exists():
             continue
@@ -189,23 +200,25 @@ def read_news(app_filter: str | None = None) -> list[dict]:
             title = (a.get("title") or "").strip()
             desc  = (a.get("description") or "").strip()
             body  = (a.get("body") or "").strip()
-            # Prefer full body (v2 scraper); fall back to title+description (legacy)
+            # Prefer full body; prepend the headline so the chunk is self-describing.
             if len(body) > 200:
-                text = body
+                text = f"{title}\n\n{body}" if title and not body.startswith(title) else body
             else:
                 text = f"{title}. {desc}".strip(". ") if desc else title
             if not text:
                 continue
             docs.append({
                 "source":    "news",
-                "app_name":  app_dir.name,
-                "category":  APP_CATEGORIES.get(app_dir.name, "ev_charging"),
+                "app_name":  app_name,
+                "category":  a.get("category") or APP_CATEGORIES.get(app_name, "ev_charging"),
                 "content":   text,
                 "metadata": {
-                    "source_name": a.get("source"),
-                    "published":   a.get("published"),
-                    "link":        a.get("link"),
-                    "query":       a.get("query"),
+                    "title":        title,
+                    "source_name":  a.get("publisher") or a.get("source"),
+                    "published":    a.get("published"),
+                    "published_at": a.get("published_at"),
+                    "link":         a.get("link"),
+                    "query":        a.get("query"),
                 },
             })
     log.info("News: loaded %d articles", len(docs))

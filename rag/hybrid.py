@@ -39,10 +39,21 @@ log = logging.getLogger(__name__)
 
 
 def _retriever():
-    """Lazy import of the embedder + DB conn (pulls torch/anthropic) so the pure
-    helpers (RRF) and the reranker stay importable without the heavy stack."""
-    from rag.retriever import _get_conn, embed_texts
-    return _get_conn, embed_texts
+    """Lazy import of the embedder + a DB-connection factory, WITHOUT importing
+    rag.retriever (which instantiates an Anthropic client at import time). This
+    keeps hybrid retrieval usable with ANY LLM provider, and keeps the pure
+    helpers (RRF) and reranker importable without the heavy torch stack."""
+    import sys
+    from pathlib import Path
+    pipeline_dir = str(Path(__file__).resolve().parents[1] / "pipeline")
+    if pipeline_dir not in sys.path:
+        sys.path.insert(0, pipeline_dir)
+    from processing.embedder import embed_texts  # local bge model, no API key
+
+    def get_conn():
+        return psycopg2.connect(os.environ["DATABASE_URL"])
+
+    return get_conn, embed_texts
 
 RERANKER_MODEL    = os.environ.get("RERANKER_MODEL", "cross-encoder/ms-marco-MiniLM-L-6-v2")
 HYBRID_CANDIDATES = int(os.environ.get("HYBRID_CANDIDATES", 40))

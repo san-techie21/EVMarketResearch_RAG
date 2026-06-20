@@ -54,7 +54,7 @@ app with no cloud dependency - so a fork can run the whole thing locally.
 | 3 | **Security hardening** | ✅ quick-wins done (cookie key→env, XSRF on, conn-leak fix) |
 | 4 | **Self-host infra** (docker-compose + pgvector + migrations) | ✅ db tested live (schema + BM25 + vector + RRF verified on pgvector) |
 | 6 | **Next.js frontend** (login, chat, dashboards) | ✅ built & verified (Aurora-Glass UI; demo-mode, Vercel-ready, build passes) |
-| 5 | **FastAPI backend** (JWT, SSE streaming, insights, stations) | ⏳ next (wire the live UI to real retrieval) |
+| 5 | **FastAPI backend** (JWT auth, chat, stats; pluggable LLM) | ✅ built & tested (health/login/stats/auth verified live; chat wired to hybrid retrieval) |
 | 7 | **Innovative features** (below) | ◑ previewed in UI (sentiment-over-time, battlecards, station data) |
 
 ### Frontend (Phase 6) - "Aurora Glass"

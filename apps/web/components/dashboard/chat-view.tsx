@@ -5,8 +5,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUp, Sparkles, FileText, ChevronDown } from "lucide-react";
 import { Markdown } from "@/components/markdown";
 import {
-  APPS, SOURCE_LABELS, EXAMPLE_QUESTIONS, answerFor, type Source,
+  APPS, SOURCE_LABELS, EXAMPLE_QUESTIONS, type Source,
 } from "@/lib/mock";
+import { ask } from "@/lib/api";
 
 interface Msg {
   id: string;
@@ -41,28 +42,36 @@ export function ChatView() {
     ]);
     setInput("");
 
-    // route the question to the most relevant answer, then stream it word-by-word
-    const { answer, sources } = answerFor(text);
-    setTimeout(() => {
-      const tokens = answer.split(/(\s+)/);
-      let i = 0;
-      const timer = setInterval(() => {
-        i += 2;
-        const partial = tokens.slice(0, i).join("");
-        const done = i >= tokens.length;
+    // get the answer (live backend if configured, else demo), then stream it
+    ask(text)
+      .then(({ answer, sources }) => {
+        const tokens = answer.split(/(\s+)/);
+        let i = 0;
+        const timer = setInterval(() => {
+          i += 2;
+          const partial = tokens.slice(0, i).join("");
+          const done = i >= tokens.length;
+          setMessages((m) =>
+            m.map((msg) =>
+              msg.id === aId
+                ? { ...msg, content: partial, thinking: false, sources: done && sources.length ? sources : msg.sources }
+                : msg,
+            ),
+          );
+          if (done) {
+            clearInterval(timer);
+            setBusy(false);
+          }
+        }, 22);
+      })
+      .catch(() => {
         setMessages((m) =>
           m.map((msg) =>
-            msg.id === aId
-              ? { ...msg, content: partial, thinking: false, sources: done ? sources : undefined }
-              : msg,
+            msg.id === aId ? { ...msg, content: "Something went wrong. Please try again.", thinking: false } : msg,
           ),
         );
-        if (done) {
-          clearInterval(timer);
-          setBusy(false);
-        }
-      }, 22);
-    }, 650);
+        setBusy(false);
+      });
   }
 
   const empty = messages.length === 0;

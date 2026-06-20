@@ -1,11 +1,10 @@
-# Self-host stack for the EV Market Research RAG (v3).
+# Full self-host stack for Voltaic (EV Market Research RAG).
 #
-#   docker compose -f infra/docker-compose.yml up -d db      # just the database
-#   docker compose -f infra/docker-compose.yml up -d         # full stack
+#   cd infra && cp .env.example .env   # then add your LLM key to .env
+#   docker compose up -d --build       # db + api + web, all of it
 #
-# Brings up Postgres+pgvector with the schema pre-loaded, the FastAPI backend,
-# and the Next.js frontend - no cloud dependency. Configure via infra/.env
-# (copy from infra/.env.example).
+# Then open http://localhost:3000  (api on :8000, db on :55432)
+# No DigitalOcean, no cloud Postgres - everything runs locally.
 
 services:
   db:
@@ -16,7 +15,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-evrag_dev_pw}
       POSTGRES_DB:       ${POSTGRES_DB:-ev_research}
     ports:
-      - "${DB_PORT:-5433}:5432"
+      - "${DB_PORT:-55432}:5432"
     volumes:
       - evrag_pgdata:/var/lib/postgresql/data
       - ./db:/docker-entrypoint-initdb.d:ro
@@ -34,25 +33,29 @@ services:
     env_file: .env
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER:-evrag}:${POSTGRES_PASSWORD:-evrag_dev_pw}@db:5432/${POSTGRES_DB:-ev_research}
+      CORS_ORIGINS: "*"
     ports:
       - "${API_PORT:-8000}:8000"
+    volumes:
+      - ../knowledge_base:/app/knowledge_base
+      - evrag_hfcache:/app/.hf-cache
     depends_on:
       db:
         condition: service_healthy
-    profiles: ["full"]
 
   web:
     build:
       context: ../apps/web
       dockerfile: Dockerfile
+      args:
+        # Browser runs on the host, so it reaches the api on the published host port.
+        NEXT_PUBLIC_API_URL: http://localhost:${API_PORT:-8000}
     container_name: evrag-web
-    environment:
-      NEXT_PUBLIC_API_URL: http://localhost:${API_PORT:-8000}
     ports:
       - "${WEB_PORT:-3000}:3000"
     depends_on:
       - api
-    profiles: ["full"]
 
 volumes:
   evrag_pgdata:
+  evrag_hfcache:

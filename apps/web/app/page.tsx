@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowRight, Mail, Lock, Sparkles, ShieldCheck, Newspaper, BarChart3 } from "lucide-react";
 import { BrandLogo } from "@/components/brand-logo";
+import { login, isLive } from "@/lib/api";
 
 const container = {
   hidden: { opacity: 0 },
@@ -26,14 +27,19 @@ export default function LoginPage() {
   const [email, setEmail] = useState("analyst@voltaic.ai");
   const [password, setPassword] = useState("demo");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      if (typeof window !== "undefined") localStorage.setItem("voltaic_auth", "1");
+    setError(null);
+    const ok = await login(email, password);
+    if (ok) {
       router.push("/dashboard");
-    }, 750);
+    } else {
+      setLoading(false);
+      setError("Invalid username or password.");
+    }
   }
 
   return (
@@ -134,11 +140,17 @@ export default function LoginPage() {
               {loading ? "Entering…" : "Enter workspace"}
               {!loading && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
             </button>
+
+            {error && <p className="text-center text-xs text-rose-400">{error}</p>}
           </form>
 
           <div className="mt-5 flex items-center gap-2 rounded-xl glass px-3 py-2.5 text-xs text-[var(--text-2)]">
             <Sparkles className="h-3.5 w-3.5 text-[var(--accent-violet)]" />
-            Demo mode - credentials are prefilled. Just hit <b className="text-[var(--text)]">Enter workspace</b>.
+            {isLive() ? (
+              <>Connected to your live workspace.</>
+            ) : (
+              <>Demo mode - credentials are prefilled. Just hit <b className="text-[var(--text)]">Enter workspace</b>.</>
+            )}
           </div>
         </motion.section>
       </div>
